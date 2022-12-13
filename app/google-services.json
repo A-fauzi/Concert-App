@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "998086741035",
+    "project_id": "concert-app-9d9d1",
+    "storage_bucket": "concert-app-9d9d1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998086741035:android:fdbf97456864cb94e1ae6e",
+        "android_client_info": {
+          "package_name": "com.example.concert_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998086741035-rfv9ever0nk0qgmn7cimr4cdv9ufugkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXM3HmG24uyzTb3yacVFzY8NnPQRr0GdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998086741035-rfv9ever0nk0qgmn7cimr4cdv9ufugkh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
