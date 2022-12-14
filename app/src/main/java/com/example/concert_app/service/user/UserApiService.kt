@@ -1,18 +1,25 @@
-package com.example.concert_app
+package com.example.concert_app.service.user
 
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import com.example.concert_app.NetworkConfig
+import com.example.concert_app.R
+import com.example.concert_app.data.user.UserModel
+import com.example.concert_app.data.user.UserRequest
+import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.view.main.MainActivity
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ApiService {
+class UserApiService {
     fun getUsers() {
         NetworkConfig()
-            .getService()
+            .getUserService()
             .getUsers()
             .enqueue(object : Callback<List<UserModel>> {
                 override fun onResponse(
@@ -29,28 +36,35 @@ class ApiService {
             })
     }
 
-    fun getUserById(uid: String, TAG: String, photoUrl: ImageView, name: TextView, phone: TextView) {
+    fun getUserById(uid: String, TAG: String, photoUrl: ImageView, name: TextView, phone: TextView, progressBar: ProgressBar) {
         NetworkConfig()
-            .getService()
+            .getUserService()
             .getUserById(uid)
             .enqueue(object : Callback<UserResponse> {
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                    Log.d(TAG, "DATA USER")
-                    Log.d(TAG, "${response.body()?.data?.id}")
+                    if (response.isSuccessful) {
+                        Log.d(TAG, "DATA USER")
+                        Log.d(TAG, "${response.body()?.data?.id}")
 
-                    Picasso.get()
-                        .load(response.body()?.data?.photoUrl)
-                        .placeholder(R.drawable.profile_xample)
-                        .error(R.mipmap.ic_launcher)
-                        .into(photoUrl)
+                        Picasso.get()
+                            .load(response.body()?.data?.photoUrl)
+                            .placeholder(R.drawable.profile_xample)
+                            .error(R.mipmap.ic_launcher)
+                            .into(photoUrl)
 
-                    name.text = response.body()?.data?.name
-                    phone.text = response.body()?.data?.phone
+                        name.text = response.body()?.data?.name
+                        phone.text = response.body()?.data?.phone
 
+                        progressBar.visibility = View.GONE
+                    } else {
+                        Log.d(TAG, "Response Not Successfully")
+                        progressBar.visibility = View.GONE
+                    }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     Log.d(TAG, t.message.toString())
+                    progressBar.visibility = View.GONE
                 }
 
             })
@@ -65,7 +79,7 @@ class ApiService {
             id = id
         )
         NetworkConfig()
-            .getService()
+            .getUserService()
             .addUser(user)
             .enqueue(object: Callback<UserRequest> {
                 override fun onResponse(call: Call<UserRequest>, response: Response<UserRequest>) {

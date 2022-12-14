@@ -8,7 +8,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import com.example.concert_app.ApiService
+import com.example.concert_app.service.user.UserApiService
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.R
 import com.example.concert_app.databinding.ActivityRegisterBinding
@@ -245,7 +245,7 @@ class RegisterActivity : AppCompatActivity() {
                     val phone = phone.text.toString()
                     val email = email.text.toString()
 
-                    val apiService = ApiService()
+                    val apiService = UserApiService()
                     apiService.postData(name, phone, email, uid)
 
                     startActivity(Intent(this, MainActivity::class.java))

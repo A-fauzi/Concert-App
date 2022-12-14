@@ -1,4 +1,4 @@
-package com.example.concert_app
+package com.example.concert_app.data.user
 
 import com.google.gson.annotations.SerializedName
 

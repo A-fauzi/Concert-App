@@ -1,5 +1,7 @@
 package com.example.concert_app
 
+import com.example.concert_app.service.concert.ConcertService
+import com.example.concert_app.service.user.UsersService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,11 +20,12 @@ class NetworkConfig {
 
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.43.88:8080/")
+            .baseUrl("https://1e3b-182-2-167-129.ap.ngrok.io/")
             .client(getInterceptor())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    fun getService() = getRetrofit().create(UsersService::class.java)
+    fun getUserService(): UsersService = getRetrofit().create(UsersService::class.java)
+    fun getConcertService(): ConcertService = getRetrofit().create(ConcertService::class.java)
 }
