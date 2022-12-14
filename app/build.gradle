@@ -56,6 +56,16 @@ dependencies {
 
     implementation 'org.glassfish:javax.annotation:10.0-b28'
 
+    // Lottie
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    // circle image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Image Loading
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'

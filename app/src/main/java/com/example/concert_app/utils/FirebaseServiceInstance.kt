@@ -1,4 +1,4 @@
-package com.example.concert_app
+package com.example.concert_app.utils
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

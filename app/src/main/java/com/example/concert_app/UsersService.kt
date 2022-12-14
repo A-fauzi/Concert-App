@@ -1,10 +1,8 @@
 package com.example.concert_app
 
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UsersService {
     @GET("users")
@@ -12,4 +10,8 @@ interface UsersService {
 
     @POST("users")
     fun addUser(@Body userData: UserRequest): Call<UserRequest>
+
+    @GET("users/{id}")
+    fun getUserById(@Path("id") userId: String): Call<UserResponse>
+
 }
