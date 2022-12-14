@@ -2,19 +2,14 @@ package com.example.concert_app.view.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.concert_app.*
 import com.example.concert_app.databinding.ActivityMainBinding
 import com.example.concert_app.view.main.fragment.AccountFragment
-import com.example.concert_app.view.main.fragment.HomeFragment
+import com.example.concert_app.view.main.fragment.home.HomeFragment
 import com.example.concert_app.view.main.fragment.MessageFragment
 import com.example.concert_app.view.main.fragment.TicketFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
     companion object {
