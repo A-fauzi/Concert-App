@@ -41,13 +41,29 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        tools:src="@drawable/profile_xample"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#FF000000"/>
+   <RelativeLayout
+       android:layout_width="65dp"
+       android:layout_height="65dp">
+
+       <de.hdodenhof.circleimageview.CircleImageView
+           android:id="@+id/profile_image"
+           android:layout_width="65dp"
+           android:layout_height="65dp"
+           tools:src="@drawable/profile_xample"
+           app:civ_border_width="1dp"
+           app:civ_border_color="#FF000000"/>
+
+       <de.hdodenhof.circleimageview.CircleImageView
+           android:id="@+id/iv_choose_image"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@drawable/icons8_camera_24"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentBottom="true"
+           android:clickable="true"
+           android:focusable="true"
+           android:foreground="?selectableItemBackground"/>
+   </RelativeLayout>
 
     <TextView
         android:id="@+id/profile_name"

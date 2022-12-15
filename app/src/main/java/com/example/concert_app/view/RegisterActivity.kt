@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import com.example.concert_app.service.user.UserApiService
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.R
@@ -29,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var email: TextInputEditText
     private lateinit var password: TextInputEditText
     private lateinit var passwordConfirmation: TextInputEditText
+    private lateinit var progressBar: ProgressBar
 
     private fun initView() {
         name = binding.etNameSignUp
@@ -36,6 +38,7 @@ class RegisterActivity : AppCompatActivity() {
         email = binding.etEmailSignUp
         password = binding.etPasswordSignUp
         passwordConfirmation = binding.etPasswordConfirmSignUp
+        progressBar = binding.progressInSignup
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +71,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnRegisterSignUp.setOnClickListener {
             setFormEnable(false, R.color.input_disabled)
             createUser()
+            binding.btnRegisterSignUp.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
         }
 
         binding.tvLinkToSignIn.setOnClickListener {
@@ -252,9 +257,13 @@ class RegisterActivity : AppCompatActivity() {
                     finish()
 
                 } else {
+                    binding.btnRegisterSignUp.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
                     Log.d(TAG, "Failure Create Email Password")
                 }
             }.addOnFailureListener {
+                binding.btnRegisterSignUp.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
                 Log.d(TAG, it.message.toString())
             }
     }

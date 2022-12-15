@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.example.concert_app.NetworkConfig
+import com.example.concert_app.remote.NetworkConfig
 import com.example.concert_app.R
 import com.example.concert_app.data.user.UserModel
 import com.example.concert_app.data.user.UserRequest
@@ -88,6 +88,32 @@ class UserApiService {
 
                 override fun onFailure(call: Call<UserRequest>, t: Throwable) {
                     Log.d(MainActivity.TAG, t.message.toString())
+                }
+
+            })
+    }
+
+    fun updateUser(uid: String, name: String, phone: String, email:String, photoUrl: String) {
+        val user = UserRequest(
+            photoUrl = photoUrl,
+            phone = phone,
+            name = name,
+            email = email,
+            id = uid
+        )
+        NetworkConfig()
+            .getUserService()
+            .updateUsers(uid, user)
+            .enqueue(object : Callback<UserResponse>{
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    Log.d(MainActivity.TAG, "Data Updated and add to API")
+                }
+
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    Log.d(MainActivity.TAG, t.localizedMessage!!)
                 }
 
             })

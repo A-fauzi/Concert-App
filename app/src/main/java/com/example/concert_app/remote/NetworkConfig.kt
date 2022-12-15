@@ -1,4 +1,4 @@
-package com.example.concert_app
+package com.example.concert_app.remote
 
 import com.example.concert_app.service.concert.ConcertService
 import com.example.concert_app.service.user.UsersService
@@ -20,7 +20,7 @@ class NetworkConfig {
 
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://1e3b-182-2-167-129.ap.ngrok.io/")
+            .baseUrl("https://00ea-114-124-247-178.ap.ngrok.io")
             .client(getInterceptor())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

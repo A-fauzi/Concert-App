@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.R
@@ -30,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tvWarnPass: TextView
     private lateinit var btnLogin: MaterialButton
     private lateinit var chipToSignUp: Chip
+    private lateinit var progressBar: ProgressBar
 
     private fun initView() {
         textFieldEmail = binding.outlinedTextFieldEmail
@@ -40,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
         tvWarnPass = binding.tvWarnPassword
         btnLogin = binding.btnLoginSignIn
         chipToSignUp = binding.tvLinkToSignUp
+        progressBar = binding.progressInSignIn
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +59,8 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             setFormEnable(false, R.color.input_disabled)
             signInUser()
+            btnLogin.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
         }
 
         chipToSignUp.setOnClickListener {
@@ -89,6 +94,8 @@ class LoginActivity : AppCompatActivity() {
 
                 setFormEnable(true, R.color.white)
                 dialogErrors(layoutInflater, this, authResult.exception?.localizedMessage!!, R.raw.auth_failure)
+                btnLogin.visibility = View.VISIBLE
+                progressBar.visibility = View.GONE
 
             }
 
@@ -96,6 +103,8 @@ class LoginActivity : AppCompatActivity() {
 
             setFormEnable(true, R.color.white)
             dialogErrors(layoutInflater, this, authFailure.localizedMessage!!, R.raw.auth_failure)
+            btnLogin.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
 
         }
 

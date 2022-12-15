@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.concert_app.NetworkConfig
+import com.example.concert_app.remote.NetworkConfig
 import com.example.concert_app.data.concert.ConcertResponse
 import com.example.concert_app.databinding.FragmentAllGenresBinding
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListAllGenres
@@ -36,6 +36,7 @@ class AllGenresFragment : Fragment() {
         rvList = binding.rvAllConcert
         progressbar = binding.progressbar
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,8 +45,10 @@ class AllGenresFragment : Fragment() {
         binding = FragmentAllGenresBinding.inflate(inflater, container, false)
 
         initView()
-        getDataConcert()
+
         setupRecyclerView()
+
+        getDataConcert()
 
         return binding.root
     }
@@ -53,7 +56,8 @@ class AllGenresFragment : Fragment() {
     private fun setupRecyclerView() {
         adapterListAllGenres = AdapterListAllGenres(arrayListOf())
         rvList.apply {
-            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
             adapter = adapterListAllGenres
         }
     }
@@ -66,7 +70,7 @@ class AllGenresFragment : Fragment() {
         NetworkConfig()
             .getConcertService()
             .getConcerts()
-            .enqueue(object : Callback<ConcertResponse>{
+            .enqueue(object : Callback<ConcertResponse> {
                 override fun onResponse(
                     call: Call<ConcertResponse>,
                     response: Response<ConcertResponse>

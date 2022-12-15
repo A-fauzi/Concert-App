@@ -47,36 +47,49 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:padding="@dimen/root_view_padding">
+   <com.google.android.material.chip.ChipGroup
+       android:id="@+id/chip_group"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:chipSpacingHorizontal="16dp"
+       app:singleSelection="true">
 
-        <View
-            android:id="@+id/indicator"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:background="@drawable/gradient_bg"/>
+       <com.google.android.material.chip.Chip
+           android:id="@+id/chip_all_genres"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="All genres"
+           android:textStyle="bold"
+           style="@style/customChipStyle"/>
+       <com.google.android.material.chip.Chip
+           android:id="@+id/chip_Pop"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Pop"
+           style="@style/customChipStyle"
+           android:textStyle="bold"/>
+       <com.google.android.material.chip.Chip
+           android:id="@+id/chip_rock"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Rock"
+           style="@style/customChipStyle"
+           android:textStyle="bold"/>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/tab_bg"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="#ffffff"
-            app:tabIndicatorColor="@null"
-            app:tabRippleColor="@null"
-            app:tabIndicatorHeight="0dp"/>
-    </FrameLayout>
+       <com.google.android.material.chip.Chip
+           android:id="@+id/chip_indie"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Indie"
+           style="@style/customChipStyle"
+           android:textStyle="bold" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+   </com.google.android.material.chip.ChipGroup>
+
+    <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/root_view_padding"/>
+        android:id="@+id/fragmentContainer"/>
 
 
 </LinearLayout>
