@@ -1,6 +1,7 @@
 package com.example.concert_app.view.main.fragment
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,12 +13,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import com.example.concert_app.R
 import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.service.user.UserApiService
 import com.example.concert_app.databinding.FragmentAccountBinding
 import com.example.concert_app.remote.NetworkConfig
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.utils.FirebaseServiceInstance.firebaseStorage
+import com.example.concert_app.utils.Libs
+import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.LoginActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
@@ -42,7 +47,7 @@ class AccountFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var chooseImage: CircleImageView
     private lateinit var fillPath: Uri
-
+    private lateinit var progressDialog: ProgressDialog
 
     private fun initView() {
         photoUrl = binding.profileImage
@@ -51,6 +56,7 @@ class AccountFragment : Fragment() {
         btnLogout = binding.btnLogout
         progressBar = binding.progressbar
         chooseImage = binding.ivChooseImage
+        progressDialog = ProgressDialog(context, R.style.MaterialAlertDialog_rounded)
     }
 
     override fun onCreateView(
@@ -101,7 +107,12 @@ class AccountFragment : Fragment() {
             try {
                 photoUrl.setImageURI(data.data)
                 uploadImageToFirebase(fillPath)
-            } catch (e: IOException) {
+
+                progressDialog.setTitle("is updating")
+                progressDialog.setMessage("Please wait, data is updating")
+                progressDialog.show()
+
+              } catch (e: IOException) {
                 e.stackTrace
             }
         }
@@ -113,6 +124,7 @@ class AccountFragment : Fragment() {
             val refStorage = firebaseStorage.reference.child("images_profile/${auth.currentUser?.email}/$fillName")
             refStorage.putFile(UriPath).addOnSuccessListener {
                 it.storage.downloadUrl.addOnSuccessListener { uri ->
+                    progressDialog.dismiss()
                     val uriImg = uri.toString()
                     val uid = auth.currentUser!!.uid
 
@@ -130,14 +142,19 @@ class AccountFragment : Fragment() {
                                         UserApiService().updateUser(id, name, phone, email, uriImg)
                                     }
 
+                                    dialogMessageAnimate(layoutInflater, requireContext(), "Data Updated", R.raw.successful, "Success")
+                                    progressBar.visibility = View.GONE
                                 } else {
                                     Log.d(TAG, "Response Not Successfully")
+                                    progressBar.visibility = View.GONE
+                                    dialogMessageAnimate(layoutInflater, requireContext(), "Data Not Updated", R.raw.auth_failure, "Failure")
                                 }
                             }
 
                             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                                 Log.d(TAG, t.message.toString())
-
+                                progressBar.visibility = View.GONE
+                                dialogMessageAnimate(layoutInflater, requireContext(), t.message.toString(), R.raw.auth_failure, "Failure")
                             }
 
                         })

@@ -13,7 +13,7 @@ import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.R
 import com.example.concert_app.databinding.ActivityLoginBinding
 import com.example.concert_app.utils.Libs.clearText
-import com.example.concert_app.utils.Libs.dialogErrors
+import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.main.MainActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
@@ -93,7 +93,8 @@ class LoginActivity : AppCompatActivity() {
             } else {
 
                 setFormEnable(true, R.color.white)
-                dialogErrors(layoutInflater, this, authResult.exception?.localizedMessage!!, R.raw.auth_failure)
+
+                dialogMessageAnimate(layoutInflater, this, authResult.exception?.localizedMessage!!, R.raw.auth_failure, "Uuppss")
                 btnLogin.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
 
@@ -102,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
         }.addOnFailureListener { authFailure ->
 
             setFormEnable(true, R.color.white)
-            dialogErrors(layoutInflater, this, authFailure.localizedMessage!!, R.raw.auth_failure)
+            dialogMessageAnimate(layoutInflater, this, authFailure.localizedMessage!!, R.raw.auth_failure, "Uuppss")
             btnLogin.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
 

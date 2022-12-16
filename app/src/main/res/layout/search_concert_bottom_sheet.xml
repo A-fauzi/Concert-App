@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/root_view_padding"
+    android:id="@+id/design_bottom_sheet"
+    android:orientation="vertical"
+    tools:context=".view.main.fragment.home.SearchConcertFragment">
+
+    <SearchView
+        android:id="@+id/search_concert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:iconifiedByDefault="false"
+        android:padding="4dp"
+        android:queryHint="Search Concert" />
+
+    <TextView
+        android:id="@+id/tv_count_react_bottom_sheet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:dividerInsetEnd="150dp"
+        app:dividerInsetStart="150dp"
+        app:dividerThickness="2dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_concert_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/item_all_concert"/>
+
+
+</LinearLayout>

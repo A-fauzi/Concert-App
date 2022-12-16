@@ -1,16 +1,30 @@
 package com.example.concert_app.view.main.fragment.home
 
+import android.app.Dialog
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.ArrayAdapter
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ListView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
 import com.example.concert_app.databinding.FragmentHomeBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -23,9 +37,17 @@ class HomeFragment : Fragment() {
 
     private lateinit var chipAll: Chip
 
+    private lateinit var searchView: SearchView
+    private lateinit var list: ArrayList<String>
+    private lateinit var adapter: ArrayAdapter<*>
+    private lateinit var listView: ListView
+    private lateinit var btnSearch: ImageView
+
+
     private fun initView() {
         chipGroup = binding.chipGroup
         chipAll = binding.chipAllGenres
+        btnSearch = binding.btnSearch
     }
 
     override fun onCreateView(
@@ -45,6 +67,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        btnSearch.setOnClickListener {
+            replaceFragment(SearchConcertFragment())
+        }
 
         var state: Boolean = true
 
@@ -108,4 +134,6 @@ class HomeFragment : Fragment() {
         fragmentTransaction.replace(R.id.fragmentContainer, fragment)
         fragmentTransaction.commit()
     }
+
+
 }

@@ -21,6 +21,8 @@
     <string name="txt_sign_in_provider">Or Sign In With</string>
     <string name="txt_question_sign_in">If you do not have an account, please\ </string>
     <string name="txt_link_to_sign_up">Sign Up</string>
+    <string name="no_match">No match found</string>
+
 
     <string name="logout">Logout</string>
     <string name="hello">Hello &#x1f44b;!</string>
