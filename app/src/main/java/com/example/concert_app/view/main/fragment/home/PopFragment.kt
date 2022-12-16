@@ -7,25 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.concert_app.R
 import com.example.concert_app.data.concert.ConcertResponse
-import com.example.concert_app.databinding.FragmentIndieBinding
 import com.example.concert_app.databinding.FragmentPopBinding
 import com.example.concert_app.remote.NetworkConfig
-import com.example.concert_app.view.main.fragment.home.adapter.AdapterListAllGenres
+import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PopFragment : Fragment() {
+class PopFragment : Fragment(), AdapterListConcert.CallClickListener {
 
     private lateinit var binding: FragmentPopBinding
 
     private lateinit var rvList: RecyclerView
 
-    private lateinit var adapterList: AdapterListAllGenres
+    private lateinit var adapterList: AdapterListConcert
 
     private lateinit var progressbar: ProgressBar
 
@@ -52,7 +51,7 @@ class PopFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapterList = AdapterListAllGenres(arrayListOf())
+        adapterList = AdapterListConcert(this@PopFragment, arrayListOf())
         rvList.apply {
             layoutManager =
                 LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
@@ -101,5 +100,9 @@ class PopFragment : Fragment() {
 //        for (res in concert) {
 //            Log.d(TAG, "artist: ${res.data?.title}")
 //        }
+    }
+
+    override fun onClickListenerItem(data: ConcertResponse.Concert) {
+        Toast.makeText(requireActivity(), data.artist, Toast.LENGTH_SHORT).show()
     }
 }

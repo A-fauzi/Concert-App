@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
-import com.example.concert_app.data.concert.ConcertRequest
 import com.example.concert_app.data.concert.ConcertResponse
-import com.example.concert_app.data.user.User
-import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.databinding.ItemAllConcertBinding
 import com.squareup.picasso.Picasso
-import okhttp3.internal.notify
 
-class AdapterListAllGenres(private val listItem: ArrayList<ConcertResponse.Concert>) : RecyclerView.Adapter<AdapterListAllGenres.ViewHolder>() {
+class AdapterListConcert(
+    private var callClickListener: CallClickListener,
+    private val listItem: ArrayList<ConcertResponse.Concert>
+    ) : RecyclerView.Adapter<AdapterListConcert.ViewHolder>() {
     class ViewHolder(val binding: ItemAllConcertBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +31,10 @@ class AdapterListAllGenres(private val listItem: ArrayList<ConcertResponse.Conce
                     .into(binding.itemIvAllConcert)
                 binding.itemTvTitle.text = title
                 binding.itemTvLocDate.text = "$locationName $date $time"
+
+                binding.itemIvAllConcert.setOnClickListener {
+                    callClickListener.onClickListenerItem(listItem[position])
+                }
             }
         }
     }
@@ -45,5 +48,9 @@ class AdapterListAllGenres(private val listItem: ArrayList<ConcertResponse.Conce
         listItem.clear()
         listItem.addAll(data)
         notifyDataSetChanged()
+    }
+
+    interface CallClickListener {
+        fun onClickListenerItem(data: ConcertResponse.Concert)
     }
 }
