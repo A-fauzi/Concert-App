@@ -106,4 +106,5 @@
     <string name="iv_ic_reaction">iv_ic_reaction</string>
     <string name="update_profile">Update</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="tap_on_map_instruction">Tap Untuk Melihat Lokasi</string>
 </resources>

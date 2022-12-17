@@ -1,71 +1,79 @@
 package com.example.concert_app.view.main.fragment
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
-import android.util.Log
-import androidx.core.net.toUri
-import com.example.concert_app.R
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.concert_app.databinding.ActivityConcertDetailctivityBinding
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import com.mapbox.mapboxsdk.maps.MapView
+import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 
-class ConcertDetailActivity : AppCompatActivity() {
+
+class ConcertDetailActivity : AppCompatActivity(), OnMapReadyCallback,
+    MapboxMap.OnMapClickListener {
 
     private lateinit var binding: ActivityConcertDetailctivityBinding
 
-
     private var mapView: MapView? = null
-
+    private var mapboxMap: MapboxMap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Mapbox.getInstance(this, getString(R.string.access_token))
+        Mapbox.getInstance(this, getString(com.example.concert_app.R.string.access_token))
 
         binding = ActivityConcertDetailctivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         retrieveData()
 
-        mapView = findViewById<MapView>(R.id.mapView)
+        mapView = findViewById(com.example.concert_app.R.id.mapView)
         mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync { mapBoxMap ->
-            val currentCameraPosition = mapBoxMap.cameraPosition
-            currentCameraPosition.zoom
-            currentCameraPosition.tilt
-
-            val position = CameraPosition.Builder()
-                .target(LatLng( -6.184655825881868,106.81210251827447))
-                .zoom(10.0)
-                .tilt(20.0)
-                .build()
-
-            mapBoxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 3000)
-
-            val latLngBounds = LatLngBounds.Builder()
-                .include(LatLng(-6.184655825881868,106.81210251827447))
-                .include(LatLng(-6.248820935608907, 106.96522445759))
-                .build()
-            mapBoxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 10), 3000)
-            mapBoxMap.setStyle(Style.MAPBOX_STREETS) {
-
-            }
-        }
+        mapView?.getMapAsync(this)
 
 
+    }
 
+    private fun retrieveData() {
+        val thumbnail = intent.extras?.getString("photo_url")
+        val title = intent.extras?.getString("title")
+        val dateTime = intent.extras?.getString("date_time")
+        val locName = intent.extras?.getString("location_name")
+        val desc = intent.extras?.getString("description")
+
+
+        Picasso.get()
+            .load(thumbnail)
+            .placeholder(com.example.concert_app.R.drawable.image_ini)
+            .error(com.example.concert_app.R.mipmap.ic_launcher)
+            .into(binding.ivThumbnail)
+
+        binding.tvTitle.text = title
+        binding.tvDateTime.text = dateTime
+        binding.tvLocationName.text = locName
+        binding.tvDescription.text = desc
     }
 
     override fun onStart() {
         super.onStart()
         mapView?.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView?.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView?.onPause()
     }
 
     override fun onStop() {
@@ -88,23 +96,43 @@ class ConcertDetailActivity : AppCompatActivity() {
         mapView?.onDestroy()
     }
 
-    private fun retrieveData() {
-        val thumbnail = intent.extras?.getString("photo_url")
-        val title = intent.extras?.getString("title")
-        val dateTime = intent.extras?.getString("date_time")
-        val locName = intent.extras?.getString("location_name")
-        val desc = intent.extras?.getString("description")
+    override fun onMapReady(mapboxMap: MapboxMap) {
+        this@ConcertDetailActivity.mapboxMap = mapboxMap
 
-
-        Picasso.get()
-            .load(thumbnail)
-            .placeholder(R.drawable.image_ini)
-            .error(R.mipmap.ic_launcher)
-            .into(binding.ivThumbnail)
-
-        binding.tvTitle.text = title
-        binding.tvDateTime.text = dateTime
-        binding.tvLocationName.text = locName
-        binding.tvDescription.text = desc
+        mapboxMap.setStyle(Style.MAPBOX_STREETS) { // Toast instructing user to tap on the map
+            Toast.makeText(
+                this@ConcertDetailActivity,
+                getString(com.example.concert_app.R.string.tap_on_map_instruction),
+                Toast.LENGTH_LONG
+            ).show()
+            mapboxMap.addOnMapClickListener(this@ConcertDetailActivity)
+        }
     }
+
+    override fun onMapClick(point: LatLng): Boolean {
+        // Toast instructing user to tap on the map
+        // Toast instructing user to tap on the map
+        Toast.makeText(
+            this@ConcertDetailActivity,
+            getString(com.example.concert_app.R.string.tap_on_map_instruction),
+            Toast.LENGTH_LONG
+        ).show()
+
+        val position: CameraPosition = CameraPosition.Builder()
+            .target(LatLng(-6.175098651934187, 106.82617875036401)) // Sets the new camera position
+            .zoom(17.0) // Sets the zoom
+            .bearing(180.0) // Rotate the camera
+            .tilt(30.0) // Set the camera tilt
+            .build() // Creates a CameraPosition from the builder
+
+
+        mapboxMap!!.animateCamera(
+            CameraUpdateFactory
+                .newCameraPosition(position), 7000
+        )
+
+        return true
+    }
+
+
 }
