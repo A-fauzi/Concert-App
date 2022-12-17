@@ -8,84 +8,96 @@
     android:padding="@dimen/root_view_padding"
     tools:context=".view.main.fragment.home.HomeFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:subtitle="Sub"
-        app:title="AndroidlyToolbar">
+        android:orientation="vertical"
+        android:padding="@dimen/root_view_padding"
+        android:background="@drawable/gradient_bg">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:subtitle="Sub"
+            app:title="AndroidlyToolbar">
 
-          <ImageView
-              android:id="@+id/btn_search"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:src="@drawable/ic_baseline_search_24"
-              android:clickable="true"
-              android:focusable="true"
-              android:foreground="?actionBarItemBackground"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_loc"
+                <ImageView
+                    android:id="@+id/btn_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_search_24"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_centerVertical="true"
+                    android:foreground="?actionBarItemBackground"
+                    app:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/iv_loc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_current_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Jakasampurna, Kecamatan Bekasi Barat"
+                    android:textSize="16sp"
+                    android:ems="10"
+                    android:layout_toStartOf="@id/iv_loc"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"/>
+
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="16dp"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all_genres"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_location_on_24"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
-
-            <TextView
-                android:id="@+id/tv_current_location"
+                android:text="All genres"
+                android:textStyle="bold"
+                style="@style/customChipStyle"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_Pop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jakasampurna, Kecamatan Bekasi Barat"
-                android:textSize="16sp"
-                android:ems="10"
-                android:layout_toStartOf="@id/iv_loc"
-                android:layout_centerVertical="true"/>
+                android:text="Pop"
+                style="@style/customChipStyle"
+                android:textStyle="bold"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rock"
+                style="@style/customChipStyle"
+                android:textStyle="bold"/>
 
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_indie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indie"
+                style="@style/customChipStyle"
+                android:textStyle="bold" />
 
-   <com.google.android.material.chip.ChipGroup
-       android:id="@+id/chip_group"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       app:chipSpacingHorizontal="16dp"
-       app:singleSelection="true">
-
-       <com.google.android.material.chip.Chip
-           android:id="@+id/chip_all_genres"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="All genres"
-           android:textStyle="bold"
-           style="@style/customChipStyle"/>
-       <com.google.android.material.chip.Chip
-           android:id="@+id/chip_Pop"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Pop"
-           style="@style/customChipStyle"
-           android:textStyle="bold"/>
-       <com.google.android.material.chip.Chip
-           android:id="@+id/chip_rock"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Rock"
-           style="@style/customChipStyle"
-           android:textStyle="bold"/>
-
-       <com.google.android.material.chip.Chip
-           android:id="@+id/chip_indie"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Indie"
-           style="@style/customChipStyle"
-           android:textStyle="bold" />
-
-   </com.google.android.material.chip.ChipGroup>
+        </com.google.android.material.chip.ChipGroup>
+    </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"

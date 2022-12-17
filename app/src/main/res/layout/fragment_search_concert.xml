@@ -39,7 +39,7 @@
             android:id="@+id/btn_search"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/icons8_search__1_"
+            android:src="@drawable/ic_baseline_search_24"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             app:tint="#A1000000" />

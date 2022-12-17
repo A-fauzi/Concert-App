@@ -243,15 +243,13 @@ class HomeFragment : Fragment() {
                 val country = address.countryName
                 val postalCode = address.postalCode
                 val knownName = address.featureName
-                var urbanVillage = address.subLocality
-                if (urbanVillage == null) {
-                    urbanVillage = "not detected"
-                } else {
-                    currentLocation.text = "$urbanVillage, $subDistrict"
-                }
+                val urbanVillage = address.subLocality
                 val countryCode = address.countryCode
                 val districtOrRegency = address.subAdminArea
                 val streetName = address.thoroughfare
+
+                currentLocation.text = "$urbanVillage, $subDistrict"
+
 
                 Log.i(TAG, "Urban Village(Kelurahan): $urbanVillage")
                 Log.i(TAG, "Country Code(Code Negara): $countryCode")

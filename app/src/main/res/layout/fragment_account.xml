@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:background="@drawable/gradient_bg"
+            android:background="@drawable/bg_img_gradient"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar

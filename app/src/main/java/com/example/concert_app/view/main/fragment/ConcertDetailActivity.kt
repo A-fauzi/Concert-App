@@ -7,20 +7,21 @@ import androidx.core.net.toUri
 import com.example.concert_app.R
 import com.example.concert_app.databinding.ActivityConcertDetailctivityBinding
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class ConcertDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityConcertDetailctivityBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityConcertDetailctivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
 
-    override fun onStart() {
-        super.onStart()
+
+        binding = ActivityConcertDetailctivityBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         retrieveData()
     }

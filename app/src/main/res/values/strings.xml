@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Concert-App</string>
+    <string name="access_token" translatable="false">pk.eyJ1IjoiYWZmYXV6aSIsImEiOiJja3U1NnNqaGYzZ2RhMnJxdHV1cGxpemx4In0.03SctuTMz3yM5SOfgbRuWg</string>
     <string name="item_title_home">Home</string>
     <string name="item_title_emergency">Emergency</string>
     <string name="item_title_account">Account</string>
@@ -104,4 +105,5 @@
     <string name="emotion_angry">&#x1f621;</string>
     <string name="iv_ic_reaction">iv_ic_reaction</string>
     <string name="update_profile">Update</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
