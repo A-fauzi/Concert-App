@@ -13,17 +13,14 @@ class ConcertDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityConcertDetailctivityBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         binding = ActivityConcertDetailctivityBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
         retrieveData()
+
     }
 
     private fun retrieveData() {

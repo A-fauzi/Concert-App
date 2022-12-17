@@ -56,7 +56,8 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
-    implementation("com.squareup.okhttp3:logging-interceptor:4.2.0")
+    implementation "com.squareup.okhttp3:okhttp:4.9.2"
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
 
     implementation 'org.glassfish:javax.annotation:10.0-b28'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
@@ -95,8 +96,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:21.0.1"
 
     // MapBox
-    implementation 'com.mapbox.maps:android:10.10.0'
-    implementation ('com.mapbox.maps:android:10.10.0'){
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.1'
+    implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.1'){
         exclude group: 'group_name', module: 'module_name'
     }
 
