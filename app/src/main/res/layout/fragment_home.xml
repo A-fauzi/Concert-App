@@ -22,7 +22,7 @@
               android:id="@+id/btn_search"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:src="@drawable/icons8_search__1_"
+              android:src="@drawable/ic_baseline_search_24"
               android:clickable="true"
               android:focusable="true"
               android:foreground="?actionBarItemBackground"/>
@@ -31,16 +31,17 @@
                 android:id="@+id/iv_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icons8_location"
+                android:src="@drawable/ic_baseline_location_on_24"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"/>
 
             <TextView
-                android:id="@+id/tv_location_name"
+                android:id="@+id/tv_current_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location"
+                android:text="Jakasampurna, Kecamatan Bekasi Barat"
                 android:textSize="16sp"
+                android:ems="10"
                 android:layout_toStartOf="@id/iv_loc"
                 android:layout_centerVertical="true"/>
 

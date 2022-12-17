@@ -16,5 +16,14 @@ data class UserRequest(
     val id: String? = null,
 
     @field:SerializedName("email")
-    val email: String? = null
+    val email: String? = null,
+
+    @field:SerializedName("gender")
+    val gender: String,
+
+    @field:SerializedName("title")
+    val title: String,
+
+    @field:SerializedName("description")
+    val description: String,
 )

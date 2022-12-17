@@ -6,14 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.concert_app.R
 import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.service.user.UserApiService
@@ -42,18 +40,24 @@ class AccountFragment : Fragment() {
 
     private lateinit var photoUrl: ImageView
     private lateinit var name: TextView
+    private lateinit var email: TextView
     private lateinit var phone: TextView
     private lateinit var btnLogout: ImageView
     private lateinit var progressBar: ProgressBar
-    private lateinit var chooseImage: CircleImageView
+    private lateinit var chooseImage: ImageView
     private lateinit var fillPath: Uri
     private lateinit var progressDialog: ProgressDialog
+    private lateinit var title: TextView
+    private lateinit var desc: TextView
 
     private fun initView() {
         photoUrl = binding.profileImage
         name = binding.profileName
+        email = binding.profileEmail
         phone = binding.profilePhone
-        btnLogout = binding.btnLogout
+        title = binding.title
+        desc = binding.description
+        btnLogout = binding.btnSettingAccount
         progressBar = binding.progressbar
         chooseImage = binding.ivChooseImage
         progressDialog = ProgressDialog(context, R.style.MaterialAlertDialog_rounded)
@@ -74,7 +78,7 @@ class AccountFragment : Fragment() {
 
         val apiService = UserApiService()
         if (uid != null) {
-            apiService.getUserById(uid, TAG, photoUrl, name, phone, progressBar)
+            apiService.getUserById(uid, TAG, photoUrl, name, email, phone, progressBar, title, desc)
         }
 
         return binding.root
@@ -84,9 +88,7 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnLogout.setOnClickListener {
-            auth.signOut()
-            startActivity(Intent(activity, LoginActivity::class.java))
-            activity?.finish()
+           popupMenu()
         }
 
         chooseImage.setOnClickListener {
@@ -138,8 +140,12 @@ class AccountFragment : Fragment() {
                                     val name = response.body()?.data?.name
                                     val phone = response.body()?.data?.phone
                                     val email = response.body()?.data?.email
-                                    if (id != null && name != null && phone != null && email != null) {
-                                        UserApiService().updateUser(id, name, phone, email, uriImg)
+                                    val gender = response.body()?.data?.gender
+                                    val title = response.body()?.data?.title
+                                    val desc = response.body()?.data?.description
+
+                                    if (id != null && name != null && phone != null && email != null && gender != null && title != null && desc != null) {
+                                        UserApiService().updateUser(id, name, phone, email, uriImg, gender, title, desc)
                                     }
 
                                     dialogMessageAnimate(layoutInflater, requireContext(), "Data Updated", R.raw.successful, "Success")
@@ -163,6 +169,31 @@ class AccountFragment : Fragment() {
             }
         }
     }
+
+    private fun popupMenu() {
+        val popupMenu = PopupMenu(activity, binding.btnSettingAccount, Gravity.RIGHT, R.style.CustomPopupMenu, R.style.CustomPopupMenu)
+        popupMenu.menuInflater.inflate(R.menu.pop_up_setting_account, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.logout_account -> {
+                    auth.currentUser.let { currentUser ->
+                        if (currentUser != null) {
+                            auth.signOut()
+                            startActivity(Intent(activity, LoginActivity::class.java))
+                            activity?.finish()
+                        }
+                    }
+                }
+                R.id.update_account -> {
+                    Toast.makeText(requireActivity(), "Activity belum dibuat", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            true
+        }
+        popupMenu.show()
+    }
+
 
 
 }

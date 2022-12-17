@@ -12,4 +12,7 @@ interface ConcertService {
 
     @GET("concerts/genre")
     fun getConcertByGenre(@Query("genre") genre: String): Call<ConcertResponse>
+
+    @GET("concerts/artist")
+    fun getConcertByArtist(@Query("name") artistName: String): Call<ConcertResponse>
 }

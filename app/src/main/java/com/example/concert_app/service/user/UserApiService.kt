@@ -36,7 +36,7 @@ class UserApiService {
             })
     }
 
-    fun getUserById(uid: String, TAG: String, photoUrl: ImageView, name: TextView, phone: TextView, progressBar: ProgressBar) {
+    fun getUserById(uid: String, TAG: String, photoUrl: ImageView, name: TextView, email: TextView, phone: TextView, progressBar: ProgressBar, title: TextView, desc: TextView) {
         NetworkConfig()
             .getUserService()
             .getUserById(uid)
@@ -46,14 +46,28 @@ class UserApiService {
                         Log.d(TAG, "DATA USER")
                         Log.d(TAG, "${response.body()?.data?.id}")
 
-                        Picasso.get()
-                            .load(response.body()?.data?.photoUrl)
-                            .placeholder(R.drawable.profile_xample)
-                            .error(R.mipmap.ic_launcher)
-                            .into(photoUrl)
+                        when(response.body()?.data?.gender) {
+                            "pria" -> {
+                                Picasso.get()
+                                    .load(response.body()?.data?.photoUrl)
+                                    .placeholder(R.drawable.img_placeholder_man)
+                                    .error(R.drawable.profile_xample)
+                                    .into(photoUrl)
+                            }
+                            "wanita" -> {
+                                Picasso.get()
+                                    .load(response.body()?.data?.photoUrl)
+                                    .placeholder(R.drawable.img_placeholder_woman)
+                                    .error(R.drawable.img_error_woman)
+                                    .into(photoUrl)
+                            }
+                        }
 
                         name.text = response.body()?.data?.name
                         phone.text = response.body()?.data?.phone
+                        email.text = response.body()?.data?.email
+                        title.text = response.body()?.data?.title
+                        desc.text = response.body()?.data?.description
 
                         progressBar.visibility = View.GONE
                     } else {
@@ -70,13 +84,16 @@ class UserApiService {
             })
     }
 
-    fun postData(name: String, phone: String, email:String, id: String) {
+    fun postData(name: String, phone: String, email:String, id: String, gender: String) {
         val user = UserRequest(
             photoUrl = "https://ibb.co/XZ8hcVm",
             phone = phone,
             name = name,
             email = email,
-            id = id
+            id = id,
+            gender = gender,
+            title = "Hobi | Pekerjaan | ETC",
+            description = "Belum ingin menulis sesuatu"
         )
         NetworkConfig()
             .getUserService()
@@ -93,13 +110,16 @@ class UserApiService {
             })
     }
 
-    fun updateUser(uid: String, name: String, phone: String, email:String, photoUrl: String) {
+    fun updateUser(uid: String, name: String, phone: String, email:String, photoUrl: String, gender: String, title: String, description: String) {
         val user = UserRequest(
             photoUrl = photoUrl,
             phone = phone,
             name = name,
             email = email,
-            id = uid
+            id = uid,
+            gender = gender,
+            title = title,
+            description = description
         )
         NetworkConfig()
             .getUserService()

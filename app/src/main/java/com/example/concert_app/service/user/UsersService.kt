@@ -11,7 +11,6 @@ interface UsersService {
     @GET("users")
     fun getUsers(): Call<List<UserModel>>
 
-    @FormUrlEncoded
     @POST("users")
     fun addUser(@Body userData: UserRequest): Call<UserRequest>
 

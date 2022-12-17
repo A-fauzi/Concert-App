@@ -20,7 +20,7 @@ class NetworkConfig {
 
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://8df2-182-2-135-17.ap.ngrok.io")
+            .baseUrl("https://6a93-182-2-135-17.ap.ngrok.io")
             .client(getInterceptor())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

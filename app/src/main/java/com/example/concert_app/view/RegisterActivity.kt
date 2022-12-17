@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import com.example.concert_app.service.user.UserApiService
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.R
@@ -31,6 +33,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var password: TextInputEditText
     private lateinit var passwordConfirmation: TextInputEditText
     private lateinit var progressBar: ProgressBar
+    private lateinit var radioGroup: RadioGroup
 
     private fun initView() {
         name = binding.etNameSignUp
@@ -39,6 +42,7 @@ class RegisterActivity : AppCompatActivity() {
         password = binding.etPasswordSignUp
         passwordConfirmation = binding.etPasswordConfirmSignUp
         progressBar = binding.progressInSignup
+        radioGroup = binding.enableRadioGroup
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +67,14 @@ class RegisterActivity : AppCompatActivity() {
                 Log.i(TAG, "user not login")
             }
         }
+    }
+
+    private fun enableRadioGroup(): String {
+        val selectOption: Int = radioGroup.checkedRadioButtonId
+        val radioButton: RadioButton = findViewById(selectOption)
+        val dataGender = radioButton.text
+        Log.d("checkRadio", dataGender.toString())
+        return dataGender.toString()
     }
 
     override fun onStart() {
@@ -249,9 +261,10 @@ class RegisterActivity : AppCompatActivity() {
                     val name = name.text.toString()
                     val phone = phone.text.toString()
                     val email = email.text.toString()
+                    val gender = enableRadioGroup().lowercase()
 
                     val apiService = UserApiService()
-                    apiService.postData(name, phone, email, uid)
+                    apiService.postData(name, phone, email, uid, gender)
 
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
