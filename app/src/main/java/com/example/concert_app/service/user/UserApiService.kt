@@ -3,6 +3,7 @@ package com.example.concert_app.service.user
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.concert_app.remote.NetworkConfig
@@ -11,6 +12,7 @@ import com.example.concert_app.data.user.UserModel
 import com.example.concert_app.data.user.UserRequest
 import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.view.main.MainActivity
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,17 +38,35 @@ class UserApiService {
             })
     }
 
-    fun getUserById(uid: String, TAG: String, photoUrl: ImageView, name: TextView, email: TextView, phone: TextView, progressBar: ProgressBar, title: TextView, desc: TextView) {
+    fun getUserById(
+        uid: String,
+        TAG: String,
+        photoUrl: ImageView,
+        name: TextView,
+        email: TextView,
+        phone: TextView,
+        progressBar: ProgressBar,
+        title: TextView,
+        desc: TextView,
+        shimmer: ShimmerFrameLayout,
+        profileLayout: LinearLayout
+    ) {
         NetworkConfig()
             .getUserService()
             .getUserById(uid)
             .enqueue(object : Callback<UserResponse> {
-                override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
                     if (response.isSuccessful) {
+                        shimmer.stopShimmer()
+                        shimmer.visibility = View.GONE
+                        profileLayout.visibility = View.VISIBLE
                         Log.d(TAG, "DATA USER")
                         Log.d(TAG, "${response.body()?.data?.id}")
 
-                        when(response.body()?.data?.gender) {
+                        when (response.body()?.data?.gender) {
                             "pria" -> {
                                 Picasso.get()
                                     .load(response.body()?.data?.photoUrl)
@@ -73,18 +93,20 @@ class UserApiService {
                     } else {
                         Log.d(TAG, "Response Not Successfully")
                         progressBar.visibility = View.GONE
+                        shimmer.startShimmer()
                     }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     Log.d(TAG, t.message.toString())
                     progressBar.visibility = View.GONE
+                    shimmer.startShimmer()
                 }
 
             })
     }
 
-    fun postData(name: String, phone: String, email:String, id: String, gender: String) {
+    fun postData(name: String, phone: String, email: String, id: String, gender: String) {
         val user = UserRequest(
             photoUrl = "https://ibb.co/XZ8hcVm",
             phone = phone,
@@ -98,7 +120,7 @@ class UserApiService {
         NetworkConfig()
             .getUserService()
             .addUser(user)
-            .enqueue(object: Callback<UserRequest> {
+            .enqueue(object : Callback<UserRequest> {
                 override fun onResponse(call: Call<UserRequest>, response: Response<UserRequest>) {
                     Log.d(MainActivity.TAG, "Data created and add to API")
                 }
@@ -110,7 +132,16 @@ class UserApiService {
             })
     }
 
-    fun updateUser(uid: String, name: String, phone: String, email:String, photoUrl: String, gender: String, title: String, description: String) {
+    fun updateUser(
+        uid: String,
+        name: String,
+        phone: String,
+        email: String,
+        photoUrl: String,
+        gender: String,
+        title: String,
+        description: String
+    ) {
         val user = UserRequest(
             photoUrl = photoUrl,
             phone = phone,
@@ -124,7 +155,7 @@ class UserApiService {
         NetworkConfig()
             .getUserService()
             .updateUsers(uid, user)
-            .enqueue(object : Callback<UserResponse>{
+            .enqueue(object : Callback<UserResponse> {
                 override fun onResponse(
                     call: Call<UserResponse>,
                     response: Response<UserResponse>

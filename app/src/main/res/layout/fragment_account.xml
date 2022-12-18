@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:background="@drawable/bg_img_gradient"
+            android:background="@drawable/gradient_bg"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
@@ -32,15 +32,19 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/root_view_padding">
 
-                    <ImageView
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
-                        app:tint="@color/white" />
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        app:icon="@drawable/ic_baseline_arrow_back_ios_new_24"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        android:padding="10dp"
+                        android:minWidth="0dp"
+                        app:strokeColor="@color/transparent"
+                        app:iconTint="@color/white"
+                        tools:ignore="RelativeOverlap" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -51,76 +55,110 @@
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
-                    <ImageView
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_setting_account"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        app:icon="@drawable/icons8_upload_30"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        android:padding="10dp"
+                        android:minWidth="0dp"
+                        app:strokeColor="@color/transparent"
+                        app:iconTint="@color/white"
                         android:layout_alignParentEnd="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:src="@drawable/ic_baseline_settings_24"
-                        app:tint="@color/white" />
+                        tools:ignore="RelativeOverlap" />
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 
-            <RelativeLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal">
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:layout_constraintVertical_bias="0.5"
+                app:shimmer_duration="1000"
+                app:shimmer_auto_start="false"
+                app:shimmer_base_color="#1B1A1A"
+                app:shimmer_colored="true">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
+
+                <include layout="@layout/item_load_shimmer_profile"/>
+
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <LinearLayout
+                android:id="@+id/profile_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="16dp"
-                    android:src="@drawable/profile_xample"
-                    app:civ_border_color="@color/gray"
-                    app:civ_border_width="1dp" />
+                    android:layout_gravity="center_horizontal">
 
-                <ImageView
-                    android:id="@+id/iv_choose_image"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/profile_xample"
+                        app:civ_border_color="@color/gray"
+                        app:civ_border_width="1dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/iv_choose_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                        app:icon="@drawable/ic_baseline_photo_camera_24"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp"
+                        android:padding="10dp"
+                        android:minWidth="0dp"
+                        app:strokeColor="@color/transparent"
+                        app:iconTint="@color/black"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:src="@drawable/ic_baseline_photo_camera_24"
-                    app:tint="@color/white" />
-            </RelativeLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/root_view_padding"
+                    android:text="Nama Lengkap"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/root_view_padding"
-                android:text="Nama Lengkap"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Playing Guitar"
+                    android:textColor="@color/white" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Playing Guitar"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/text_lorem"
-                android:textColor="@color/white"
-                android:layout_marginTop="@dimen/root_view_padding"
-                android:maxLines="2"
-                android:maxEms="20"
-                android:ellipsize="end"/>
-
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/text_lorem"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="@dimen/root_view_padding"
+                    android:maxLines="2"
+                    android:maxEms="20"
+                    android:ellipsize="end"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -22,6 +22,8 @@ import com.example.concert_app.utils.FirebaseServiceInstance.firebaseStorage
 import com.example.concert_app.utils.Libs
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.LoginActivity
+import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.button.MaterialButton
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,13 +44,16 @@ class AccountFragment : Fragment() {
     private lateinit var name: TextView
     private lateinit var email: TextView
     private lateinit var phone: TextView
-    private lateinit var btnLogout: ImageView
+    private lateinit var btnLogout: MaterialButton
     private lateinit var progressBar: ProgressBar
-    private lateinit var chooseImage: ImageView
+    private lateinit var chooseImage: MaterialButton
     private lateinit var fillPath: Uri
     private lateinit var progressDialog: ProgressDialog
     private lateinit var title: TextView
     private lateinit var desc: TextView
+
+    private lateinit var shimmerViewContainer: ShimmerFrameLayout
+    private lateinit var profileLayout: LinearLayout
 
     private fun initView() {
         photoUrl = binding.profileImage
@@ -61,6 +66,8 @@ class AccountFragment : Fragment() {
         progressBar = binding.progressbar
         chooseImage = binding.ivChooseImage
         progressDialog = ProgressDialog(context, R.style.MaterialAlertDialog_rounded)
+        shimmerViewContainer = binding.shimmerViewContainer
+        profileLayout = binding.profileLayout
     }
 
     override fun onCreateView(
@@ -72,13 +79,16 @@ class AccountFragment : Fragment() {
 
         initView()
 
+        profileLayout.visibility = View.GONE
+        shimmerViewContainer.startShimmer()
+
         val uid = auth.currentUser?.uid
 
         Log.d(TAG, "uid --> $uid")
 
         val apiService = UserApiService()
         if (uid != null) {
-            apiService.getUserById(uid, TAG, photoUrl, name, email, phone, progressBar, title, desc)
+            apiService.getUserById(uid, TAG, photoUrl, name, email, phone, progressBar, title, desc, shimmerViewContainer, profileLayout)
         }
 
         return binding.root
