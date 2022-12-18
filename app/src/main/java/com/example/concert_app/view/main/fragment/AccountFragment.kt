@@ -94,7 +94,21 @@ class AccountFragment : Fragment() {
 
         val apiService = UserApiService()
         if (uid != null) {
-            apiService.getUserById(uid, TAG, photoUrl, name, email, phone, progressBar, title, desc, shimmerViewContainer, shimmerViewContainerSatu,profileLayout)
+            apiService.getUserById(
+                uid,
+                TAG,
+                photoUrl,
+                name,
+                email,
+                phone,
+                progressBar,
+                title,
+                desc,
+                shimmerViewContainer,
+                shimmerViewContainerSatu,
+                profileLayout,
+                layoutItem1View
+            )
         }
 
         return binding.root
@@ -104,7 +118,7 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnLogout.setOnClickListener {
-           popupMenu()
+            popupMenu()
         }
 
         chooseImage.setOnClickListener {
@@ -130,7 +144,7 @@ class AccountFragment : Fragment() {
                 progressDialog.setMessage("Please wait, data is updating")
                 progressDialog.show()
 
-              } catch (e: IOException) {
+            } catch (e: IOException) {
                 e.stackTrace
             }
         }
@@ -139,7 +153,8 @@ class AccountFragment : Fragment() {
     private fun uploadImageToFirebase(UriPath: Uri) {
         if (UriPath != null) {
             val fillName = "profile_${UUID.randomUUID()}.jpg"
-            val refStorage = firebaseStorage.reference.child("images_profile/${auth.currentUser?.email}/$fillName")
+            val refStorage =
+                firebaseStorage.reference.child("images_profile/${auth.currentUser?.email}/$fillName")
             refStorage.putFile(UriPath).addOnSuccessListener {
                 it.storage.downloadUrl.addOnSuccessListener { uri ->
                     progressDialog.dismiss()
@@ -150,7 +165,10 @@ class AccountFragment : Fragment() {
                         .getUserService()
                         .getUserById(uid)
                         .enqueue(object : Callback<UserResponse> {
-                            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                            override fun onResponse(
+                                call: Call<UserResponse>,
+                                response: Response<UserResponse>
+                            ) {
                                 if (response.isSuccessful) {
                                     val id = response.body()?.data?.id
                                     val name = response.body()?.data?.name
@@ -161,22 +179,49 @@ class AccountFragment : Fragment() {
                                     val desc = response.body()?.data?.description
 
                                     if (id != null && name != null && phone != null && email != null && gender != null && title != null && desc != null) {
-                                        UserApiService().updateUser(id, name, phone, email, uriImg, gender, title, desc)
+                                        UserApiService().updateUser(
+                                            id,
+                                            name,
+                                            phone,
+                                            email,
+                                            uriImg,
+                                            gender,
+                                            title,
+                                            desc
+                                        )
                                     }
 
-                                    dialogMessageAnimate(layoutInflater, requireContext(), "Data Updated", R.raw.successful, "Success")
+                                    dialogMessageAnimate(
+                                        layoutInflater,
+                                        requireContext(),
+                                        "Data Updated",
+                                        R.raw.successful,
+                                        "Success"
+                                    )
                                     progressBar.visibility = View.GONE
                                 } else {
                                     Log.d(TAG, "Response Not Successfully")
                                     progressBar.visibility = View.GONE
-                                    dialogMessageAnimate(layoutInflater, requireContext(), "Data Not Updated", R.raw.auth_failure, "Failure")
+                                    dialogMessageAnimate(
+                                        layoutInflater,
+                                        requireContext(),
+                                        "Data Not Updated",
+                                        R.raw.auth_failure,
+                                        "Failure"
+                                    )
                                 }
                             }
 
                             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                                 Log.d(TAG, t.message.toString())
                                 progressBar.visibility = View.GONE
-                                dialogMessageAnimate(layoutInflater, requireContext(), t.message.toString(), R.raw.auth_failure, "Failure")
+                                dialogMessageAnimate(
+                                    layoutInflater,
+                                    requireContext(),
+                                    t.message.toString(),
+                                    R.raw.auth_failure,
+                                    "Failure"
+                                )
                             }
 
                         })
@@ -187,7 +232,13 @@ class AccountFragment : Fragment() {
     }
 
     private fun popupMenu() {
-        val popupMenu = PopupMenu(activity, binding.btnSettingAccount, Gravity.RIGHT, R.style.CustomPopupMenu, R.style.CustomPopupMenu)
+        val popupMenu = PopupMenu(
+            activity,
+            binding.btnSettingAccount,
+            Gravity.RIGHT,
+            R.style.CustomPopupMenu,
+            R.style.CustomPopupMenu
+        )
         popupMenu.menuInflater.inflate(R.menu.pop_up_setting_account, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -201,7 +252,8 @@ class AccountFragment : Fragment() {
                     }
                 }
                 R.id.update_account -> {
-                    Toast.makeText(requireActivity(), "Activity belum dibuat", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), "Activity belum dibuat", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
 
@@ -209,7 +261,6 @@ class AccountFragment : Fragment() {
         }
         popupMenu.show()
     }
-
 
 
 }
