@@ -37,6 +37,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import java.util.*
@@ -57,7 +58,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var chipAll: Chip
 
-    private lateinit var btnSearch: ImageView
+    private lateinit var btnSearch: MaterialButton
 
     private lateinit var currentLocation: TextView
 

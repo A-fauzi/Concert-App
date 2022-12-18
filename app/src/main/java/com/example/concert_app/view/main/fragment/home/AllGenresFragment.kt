@@ -117,6 +117,9 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
         bundle.putString("date_time", data.date + data.time)
         bundle.putString("location_name", data.locationName)
         bundle.putString("description", data.description)
+        bundle.putString("description", data.description)
+        bundle.putString("latitude", data.latitude)
+        bundle.putString("longitude", data.longitude)
 
         val intent = Intent(requireActivity(), ConcertDetailActivity::class.java)
         intent.putExtras(bundle)

@@ -23,18 +23,32 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/root_view_padding">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icons8_back_30"
-                app:tint="@color/white" />
 
-            <ImageView
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="0dp"
+                android:padding="10dp"
+                app:icon="@drawable/ic_baseline_arrow_back_ios_new_24"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/white"
+                app:strokeColor="@color/transparent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                app:icon="@drawable/icons8_upload_30"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                android:padding="10dp"
+                android:minWidth="0dp"
+                app:strokeColor="@color/transparent"
+                app:iconTint="@color/white"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/icons8_upload_30"
-                app:tint="@color/white" />
+                tools:ignore="RelativeOverlap" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>

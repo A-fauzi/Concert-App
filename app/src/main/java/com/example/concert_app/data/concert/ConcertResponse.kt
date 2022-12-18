@@ -65,6 +65,14 @@ data class ConcertResponse(
 
 		@field:SerializedName("title")
 		@ColumnInfo(name = "title")
-		val title: String? = null
+		val title: String? = null,
+
+		@field:SerializedName("latitude")
+		@ColumnInfo(name = "latitude")
+		val latitude: String? = null,
+
+		@field:SerializedName("longitude")
+		@ColumnInfo(name = "longitude")
+		val longitude: String? = null,
 	)
 }

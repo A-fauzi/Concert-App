@@ -50,5 +50,11 @@ data class DataItem(
 	val time: String? = null,
 
 	@field:SerializedName("title")
-	val title: String? = null
+	val title: String? = null,
+
+	@field:SerializedName("latitude")
+	val latitude: String? = null,
+
+	@field:SerializedName("longitude")
+	val longitude: String? = null,
 )

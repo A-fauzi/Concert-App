@@ -100,6 +100,10 @@ dependencies {
     implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:9.7.1'){
         exclude group: 'group_name', module: 'module_name'
     }
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0'
+    implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:4.2.0-SNAPSHOT@aar') {
+        transitive=true
+    }
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
