@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/container_email_shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/root_view_padding">
+
+        <ImageView
+            android:id="@+id/iv_email_shimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_email_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/root_view_padding"
+            android:layout_toEndOf="@id/iv_email_shimmer"
+            android:text="Email" />
+
+        <TextView
+            android:id="@+id/profile_email_shimmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_email_shimmer"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/root_view_padding"
+            android:layout_toEndOf="@id/iv_email_shimmer"
+            android:background="@drawable/gradient_bg"
+            android:text="example@gmail.com" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/profile_email_shimmer"
+            android:layout_marginTop="@dimen/root_view_padding" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_email_shimmer"
+        android:padding="@dimen/root_view_padding">
+
+        <ImageView
+            android:id="@+id/iv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_phone_android_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/root_view_padding"
+            android:layout_toEndOf="@id/iv_phone"
+            android:text="Phone" />
+
+        <TextView
+            android:id="@+id/profile_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_phone"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/root_view_padding"
+            android:layout_toEndOf="@id/iv_phone"
+            android:background="@drawable/gradient_bg"
+            android:text="08211296xxxx" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/profile_phone"
+            android:layout_marginTop="@dimen/root_view_padding" />
+    </RelativeLayout>
+
+</RelativeLayout>

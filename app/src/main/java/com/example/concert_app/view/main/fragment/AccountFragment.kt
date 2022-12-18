@@ -53,7 +53,9 @@ class AccountFragment : Fragment() {
     private lateinit var desc: TextView
 
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
+    private lateinit var shimmerViewContainerSatu: ShimmerFrameLayout
     private lateinit var profileLayout: LinearLayout
+    private lateinit var layoutItem1View: RelativeLayout
 
     private fun initView() {
         photoUrl = binding.profileImage
@@ -68,6 +70,8 @@ class AccountFragment : Fragment() {
         progressDialog = ProgressDialog(context, R.style.MaterialAlertDialog_rounded)
         shimmerViewContainer = binding.shimmerViewContainer
         profileLayout = binding.profileLayout
+        shimmerViewContainerSatu = binding.shimmerViewContainer1View
+        layoutItem1View = binding.layoutItem1View
     }
 
     override fun onCreateView(
@@ -80,7 +84,9 @@ class AccountFragment : Fragment() {
         initView()
 
         profileLayout.visibility = View.GONE
+        layoutItem1View.visibility = View.GONE
         shimmerViewContainer.startShimmer()
+        shimmerViewContainerSatu.startShimmer()
 
         val uid = auth.currentUser?.uid
 
@@ -88,7 +94,7 @@ class AccountFragment : Fragment() {
 
         val apiService = UserApiService()
         if (uid != null) {
-            apiService.getUserById(uid, TAG, photoUrl, name, email, phone, progressBar, title, desc, shimmerViewContainer, profileLayout)
+            apiService.getUserById(uid, TAG, photoUrl, name, email, phone, progressBar, title, desc, shimmerViewContainer, shimmerViewContainerSatu,profileLayout)
         }
 
         return binding.root

@@ -2,10 +2,7 @@ package com.example.concert_app.service.user
 
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import com.example.concert_app.remote.NetworkConfig
 import com.example.concert_app.R
 import com.example.concert_app.data.user.UserModel
@@ -49,7 +46,9 @@ class UserApiService {
         title: TextView,
         desc: TextView,
         shimmer: ShimmerFrameLayout,
-        profileLayout: LinearLayout
+        shimmerSatuView: ShimmerFrameLayout,
+        profileLayout: LinearLayout,
+        layoutItem1View: RelativeLayout
     ) {
         NetworkConfig()
             .getUserService()
@@ -61,10 +60,12 @@ class UserApiService {
                 ) {
                     if (response.isSuccessful) {
                         shimmer.stopShimmer()
+                        shimmerSatuView.stopShimmer()
                         shimmer.visibility = View.GONE
+                        shimmerSatuView.visibility = View.GONE
+
                         profileLayout.visibility = View.VISIBLE
-                        Log.d(TAG, "DATA USER")
-                        Log.d(TAG, "${response.body()?.data?.id}")
+                        layoutItem1View.visibility = View.VISIBLE
 
                         when (response.body()?.data?.gender) {
                             "pria" -> {

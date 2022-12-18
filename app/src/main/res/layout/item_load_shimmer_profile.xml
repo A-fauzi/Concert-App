@@ -84,13 +84,12 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="0 Followers"
-            android:textColor="@color/white"
-            android:background="@drawable/gradient_bg"/>
+            android:textColor="@color/white"/>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#BDBDBD" />
+            android:background="#BDBDBD"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,8 +97,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="0 Following"
-            android:textColor="@color/white"
-            android:background="@drawable/gradient_bg"/>
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 </LinearLayout>

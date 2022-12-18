@@ -195,7 +195,25 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container_1_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintVertical_bias="0.5"
+        app:shimmer_duration="1000"
+        app:shimmer_auto_start="false"
+        app:shimmer_base_color="#1B1A1A"
+        app:shimmer_colored="true">
+
+
+        <include layout="@layout/item_load_shimmer_1_view"/>
+
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <RelativeLayout
+        android:id="@+id/layout_item_1_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
