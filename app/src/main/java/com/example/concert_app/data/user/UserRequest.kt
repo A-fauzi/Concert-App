@@ -26,4 +26,7 @@ data class UserRequest(
 
     @field:SerializedName("description")
     val description: String,
+
+    @field:SerializedName("pathStorageProfile")
+    val pathStorageProfile: String? = null
 )

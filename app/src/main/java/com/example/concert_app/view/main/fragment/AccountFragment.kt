@@ -2,9 +2,12 @@ package com.example.concert_app.view.main.fragment
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -19,12 +22,10 @@ import com.example.concert_app.databinding.FragmentAccountBinding
 import com.example.concert_app.remote.NetworkConfig
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.utils.FirebaseServiceInstance.firebaseStorage
-import com.example.concert_app.utils.Libs
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.LoginActivity
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
-import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -92,7 +93,13 @@ class AccountFragment : Fragment() {
 
         Log.d(TAG, "uid --> $uid")
 
-        val apiService = UserApiService()
+        getUserById(uid)
+
+        return binding.root
+    }
+
+    private fun getUserById(uid: String?) {
+        val apiService = UserApiService(requireActivity())
         if (uid != null) {
             apiService.getUserById(
                 uid,
@@ -110,9 +117,8 @@ class AccountFragment : Fragment() {
                 layoutItem1View
             )
         }
-
-        return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -150,12 +156,24 @@ class AccountFragment : Fragment() {
         }
     }
 
-    private fun uploadImageToFirebase(UriPath: Uri) {
-        if (UriPath != null) {
+    private fun uploadImageToFirebase(uriPath: Uri) {
+        if (uriPath != null) {
             val fillName = "profile_${UUID.randomUUID()}.jpg"
             val refStorage =
-                firebaseStorage.reference.child("images_profile/${auth.currentUser?.email}/$fillName")
-            refStorage.putFile(UriPath).addOnSuccessListener {
+                firebaseStorage.reference.child("/images_profile/${auth.currentUser?.email}/$fillName")
+            refStorage.putFile(uriPath).addOnSuccessListener {
+                val pathStorage = UserApiService(requireActivity()).loadData(requireActivity())
+                if (pathStorage != null) {
+                    Log.d("storage", pathStorage)
+                    val refStorageDelete =
+                        firebaseStorage.reference.child(pathStorage)
+                    refStorageDelete.delete().addOnSuccessListener { delStorage ->
+                        Log.d("storage", "Photo Sebelum nya berhasil di hapus")
+                    }.addOnFailureListener { it ->
+                        Log.d("storage", "Photo Sebelum nya gagal di hapus ${it.message}")
+                    }
+                }
+
                 it.storage.downloadUrl.addOnSuccessListener { uri ->
                     progressDialog.dismiss()
                     val uriImg = uri.toString()
@@ -177,9 +195,10 @@ class AccountFragment : Fragment() {
                                     val gender = response.body()?.data?.gender
                                     val title = response.body()?.data?.title
                                     val desc = response.body()?.data?.description
+                                    val pathStorage = response.body()?.data?.pathStorageProfile
 
-                                    if (id != null && name != null && phone != null && email != null && gender != null && title != null && desc != null) {
-                                        UserApiService().updateUser(
+                                    if (id != null && name != null && phone != null && email != null && gender != null && title != null && desc != null && pathStorage != null) {
+                                        UserApiService(requireActivity()).updateUser(
                                             id,
                                             name,
                                             phone,
@@ -187,7 +206,8 @@ class AccountFragment : Fragment() {
                                             uriImg,
                                             gender,
                                             title,
-                                            desc
+                                            desc,
+                                            refStorage.path
                                         )
                                     }
 
@@ -261,6 +281,7 @@ class AccountFragment : Fragment() {
         }
         popupMenu.show()
     }
+
 
 
 }

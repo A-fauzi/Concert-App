@@ -28,6 +28,9 @@ data class UserModel(
     @field:SerializedName("description")
     val description: String,
 
+    @field:SerializedName("pathStorageProfile")
+    val pathStorageProfile: String? = null,
+
     @field:SerializedName("createdDate")
     val createdDate: String? = null,
 

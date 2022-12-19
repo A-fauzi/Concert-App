@@ -1,5 +1,7 @@
 package com.example.concert_app.service.user
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -15,7 +17,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserApiService {
+class UserApiService(context: Context) {
+
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private var ctx = context
+
     fun getUsers() {
         NetworkConfig()
             .getUserService()
@@ -48,7 +55,7 @@ class UserApiService {
         shimmer: ShimmerFrameLayout,
         shimmerSatuView: ShimmerFrameLayout,
         profileLayout: LinearLayout,
-        layoutItem1View: RelativeLayout
+        layoutItem1View: RelativeLayout,
     ) {
         NetworkConfig()
             .getUserService()
@@ -59,6 +66,8 @@ class UserApiService {
                     response: Response<UserResponse>
                 ) {
                     if (response.isSuccessful) {
+                        response.body()?.data?.pathStorageProfile?.let { saveData(ctx, it) }
+
                         shimmer.stopShimmer()
                         shimmerSatuView.stopShimmer()
                         shimmer.visibility = View.GONE
@@ -116,7 +125,8 @@ class UserApiService {
             id = id,
             gender = gender,
             title = "Hobi | Pekerjaan | ETC",
-            description = "Belum ingin menulis sesuatu"
+            description = "Belum ingin menulis sesuatu",
+            pathStorageProfile = "profile path"
         )
         NetworkConfig()
             .getUserService()
@@ -141,7 +151,8 @@ class UserApiService {
         photoUrl: String,
         gender: String,
         title: String,
-        description: String
+        description: String,
+        pathStorageProfile: String
     ) {
         val user = UserRequest(
             photoUrl = photoUrl,
@@ -151,7 +162,8 @@ class UserApiService {
             id = uid,
             gender = gender,
             title = title,
-            description = description
+            description = description,
+            pathStorageProfile = pathStorageProfile
         )
         NetworkConfig()
             .getUserService()
@@ -161,7 +173,7 @@ class UserApiService {
                     call: Call<UserResponse>,
                     response: Response<UserResponse>
                 ) {
-                    Log.d(MainActivity.TAG, "Data Updated and add to API")
+                    response.body()?.data?.pathStorageProfile?.let { saveData(ctx, it) }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
@@ -169,5 +181,19 @@ class UserApiService {
                 }
 
             })
+    }
+
+    fun saveData(context: Context, value: String) {
+        sharedPreferences = context.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.apply {
+            putString("PATH_STORAGE_KEY", value)
+        }.apply()
+    }
+
+    fun loadData(context: Context): String? {
+        sharedPreferences = context.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+
+        return sharedPreferences.getString("PATH_STORAGE_KEY", null)
     }
 }
