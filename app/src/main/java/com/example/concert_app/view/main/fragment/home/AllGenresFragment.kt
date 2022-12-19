@@ -11,15 +11,19 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.concert_app.R
 import com.example.concert_app.remote.NetworkConfig
 import com.example.concert_app.data.concert.ConcertResponse
 import com.example.concert_app.databinding.FragmentAllGenresBinding
+import com.example.concert_app.utils.Libs
+import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.main.fragment.ConcertDetailActivity
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
 import com.facebook.shimmer.ShimmerFrameLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 
 class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
@@ -96,7 +100,16 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
                 }
 
                 override fun onFailure(call: Call<ConcertResponse>, t: Throwable) {
-                    Log.d(TAG, t.localizedMessage!!)
+                    if(t is SocketTimeoutException){
+                        Toast.makeText(requireActivity(), "Socket Time out. Please try again.", Toast.LENGTH_SHORT).show()
+                        dialogMessageAnimate(
+                            layoutInflater,
+                            requireContext(),
+                            t.message.toString(),
+                            R.raw.auth_failure,
+                            t.message.toString()
+                        )
+                    }
                 }
 
             })

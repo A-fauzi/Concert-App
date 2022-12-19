@@ -3,6 +3,7 @@ package com.example.concert_app.service.user
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import com.example.concert_app.remote.NetworkConfig
@@ -10,12 +11,15 @@ import com.example.concert_app.R
 import com.example.concert_app.data.user.UserModel
 import com.example.concert_app.data.user.UserRequest
 import com.example.concert_app.data.user.UserResponse
+import com.example.concert_app.utils.Libs
+import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.main.MainActivity
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class UserApiService(context: Context) {
 
@@ -113,7 +117,7 @@ class UserApiService(context: Context) {
             })
     }
 
-    fun postData(name: String, phone: String, email: String, id: String, gender: String) {
+    fun postData(name: String, phone: String, email: String, id: String, gender: String, layoutInflater: LayoutInflater) {
         val user = UserRequest(
             photoUrl = "https://ibb.co/XZ8hcVm",
             phone = phone,
@@ -134,7 +138,16 @@ class UserApiService(context: Context) {
                 }
 
                 override fun onFailure(call: Call<UserRequest>, t: Throwable) {
-                    Log.d(MainActivity.TAG, t.message.toString())
+                    if(t is SocketTimeoutException){
+                        Toast.makeText(ctx, "Socket Time out. Please try again.", Toast.LENGTH_SHORT).show()
+                    }
+                    dialogMessageAnimate(
+                        layoutInflater,
+                        ctx,
+                        t.message.toString(),
+                        R.raw.auth_failure,
+                        "Failure"
+                    )
                 }
 
             })

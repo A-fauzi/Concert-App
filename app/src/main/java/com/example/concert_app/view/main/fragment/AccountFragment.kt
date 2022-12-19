@@ -30,6 +30,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
+import java.net.SocketTimeoutException
 import java.util.UUID
 
 class AccountFragment : Fragment() {
@@ -226,16 +227,18 @@ class AccountFragment : Fragment() {
                                     )
                                 }
                             }
-
                             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                                Log.d(TAG, t.message.toString())
-                                dialogMessageAnimate(
-                                    layoutInflater,
-                                    requireContext(),
-                                    t.message.toString(),
-                                    R.raw.auth_failure,
-                                    "Failure"
-                                )
+                               if (t is SocketTimeoutException){
+                                   Log.d(TAG, "Error: ${t.message}")
+                                   Toast.makeText(requireActivity(), "Error : ${t.message}", Toast.LENGTH_SHORT).show()
+                                   dialogMessageAnimate(
+                                       layoutInflater,
+                                       requireContext(),
+                                       "Error ${t.message}",
+                                       R.raw.auth_failure,
+                                       t.message.toString()
+                                   )
+                               }
                             }
 
                         })

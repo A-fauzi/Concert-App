@@ -17,10 +17,13 @@ import com.example.concert_app.R
 import com.example.concert_app.data.concert.ConcertResponse
 import com.example.concert_app.databinding.FragmentSearchConcertBinding
 import com.example.concert_app.remote.NetworkConfig
+import com.example.concert_app.utils.Libs
+import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 
 class SearchConcertFragment : Fragment(), AdapterListConcert.CallClickListener {
@@ -93,7 +96,16 @@ class SearchConcertFragment : Fragment(), AdapterListConcert.CallClickListener {
                 }
 
                 override fun onFailure(call: Call<ConcertResponse>, t: Throwable) {
-                    Log.d(AllGenresFragment.TAG, t.localizedMessage!!)
+                    if(t is SocketTimeoutException){
+                        Toast.makeText(requireActivity(), "Socket Time out. Please try again.", Toast.LENGTH_SHORT).show()
+                    }
+                    dialogMessageAnimate(
+                        layoutInflater,
+                        requireContext(),
+                        t.message.toString(),
+                        R.raw.auth_failure,
+                        "Failure"
+                    )
                 }
 
             })

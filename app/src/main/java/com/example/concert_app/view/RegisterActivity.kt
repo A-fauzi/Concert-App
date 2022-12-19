@@ -264,7 +264,7 @@ class RegisterActivity : AppCompatActivity() {
                     val gender = enableRadioGroup().lowercase()
 
                     val apiService = UserApiService(this)
-                    apiService.postData(name, phone, email, uid, gender)
+                    apiService.postData(name, phone, email, uid, gender, layoutInflater)
 
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
