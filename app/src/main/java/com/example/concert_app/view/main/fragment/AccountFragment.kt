@@ -46,7 +46,6 @@ class AccountFragment : Fragment() {
     private lateinit var email: TextView
     private lateinit var phone: TextView
     private lateinit var btnLogout: MaterialButton
-    private lateinit var progressBar: ProgressBar
     private lateinit var chooseImage: MaterialButton
     private lateinit var fillPath: Uri
     private lateinit var progressDialog: ProgressDialog
@@ -66,7 +65,6 @@ class AccountFragment : Fragment() {
         title = binding.title
         desc = binding.description
         btnLogout = binding.btnSettingAccount
-        progressBar = binding.progressbar
         chooseImage = binding.ivChooseImage
         progressDialog = ProgressDialog(context, R.style.MaterialAlertDialog_rounded)
         shimmerViewContainer = binding.shimmerViewContainer
@@ -108,7 +106,6 @@ class AccountFragment : Fragment() {
                 name,
                 email,
                 phone,
-                progressBar,
                 title,
                 desc,
                 shimmerViewContainer,
@@ -218,10 +215,8 @@ class AccountFragment : Fragment() {
                                         R.raw.successful,
                                         "Success"
                                     )
-                                    progressBar.visibility = View.GONE
                                 } else {
                                     Log.d(TAG, "Response Not Successfully")
-                                    progressBar.visibility = View.GONE
                                     dialogMessageAnimate(
                                         layoutInflater,
                                         requireContext(),
@@ -234,7 +229,6 @@ class AccountFragment : Fragment() {
 
                             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                                 Log.d(TAG, t.message.toString())
-                                progressBar.visibility = View.GONE
                                 dialogMessageAnimate(
                                     layoutInflater,
                                     requireContext(),

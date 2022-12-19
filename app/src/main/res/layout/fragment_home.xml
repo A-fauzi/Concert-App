@@ -51,12 +51,13 @@
                     android:id="@+id/tv_current_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Jakasampurna, Kecamatan Bekasi Barat"
-                    android:textSize="16sp"
-                    android:ems="10"
-                    android:layout_toStartOf="@id/iv_loc"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/white"/>
+                    android:layout_toStartOf="@id/iv_loc"
+                    android:ems="10"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="Jakasampurna, Kecamatan Bekasi Barat"
+                    android:fontFamily="sans-serif"/>
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -74,21 +75,24 @@
                 android:layout_height="wrap_content"
                 android:text="All genres"
                 android:textStyle="bold"
-                style="@style/customChipStyle"/>
+                style="@style/customChipStyle"
+                android:fontFamily="sans-serif"/>
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_Pop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pop"
                 style="@style/customChipStyle"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"/>
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_rock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rock"
                 style="@style/customChipStyle"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_indie"
@@ -96,7 +100,8 @@
                 android:layout_height="wrap_content"
                 android:text="Indie"
                 style="@style/customChipStyle"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"/>
 
         </com.google.android.material.chip.ChipGroup>
     </LinearLayout>

@@ -49,9 +49,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
+                        android:layout_centerInParent="true"
                         android:text="Profile"
+                        android:fontFamily="sans-serif"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
@@ -137,7 +137,8 @@
                     android:text="Nama Lengkap"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif"/>
 
                 <TextView
                     android:id="@+id/title"
@@ -145,7 +146,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Playing Guitar"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif"/>
 
                 <TextView
                     android:id="@+id/description"
@@ -157,7 +159,8 @@
                     android:layout_marginTop="@dimen/root_view_padding"
                     android:maxLines="2"
                     android:maxEms="20"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif"/>
             </LinearLayout>
 
             <LinearLayout
@@ -174,7 +177,8 @@
                     android:gravity="center"
                     android:text="0 Followers"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif"/>
 
                 <View
                     android:layout_width="1dp"
@@ -186,6 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="sans-serif"
                     android:gravity="center"
                     android:text="0 Following"
                     android:textColor="@color/white"
@@ -235,7 +240,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/root_view_padding"
                 android:layout_toEndOf="@id/iv_email"
-                android:text="Email" />
+                android:text="Email"
+                android:fontFamily="sans-serif"/>
 
             <TextView
                 android:id="@+id/profile_email"
@@ -245,7 +251,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/root_view_padding"
                 android:layout_toEndOf="@id/iv_email"
-                android:text="example@gmail.com" />
+                android:text="example@gmail.com"
+                android:fontFamily="sans-serif"/>
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -270,6 +277,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/root_view_padding"
                 android:layout_toEndOf="@id/iv_phone"
@@ -280,6 +288,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_phone"
+                android:fontFamily="sans-serif"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/root_view_padding"
                 android:layout_toEndOf="@id/iv_phone"
@@ -291,12 +300,5 @@
                 android:layout_below="@id/profile_phone"
                 android:layout_marginTop="@dimen/root_view_padding" />
         </RelativeLayout>
-
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
     </RelativeLayout>
 </LinearLayout>

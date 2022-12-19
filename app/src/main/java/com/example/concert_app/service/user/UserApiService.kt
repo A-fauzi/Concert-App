@@ -49,7 +49,6 @@ class UserApiService(context: Context) {
         name: TextView,
         email: TextView,
         phone: TextView,
-        progressBar: ProgressBar,
         title: TextView,
         desc: TextView,
         shimmer: ShimmerFrameLayout,
@@ -99,17 +98,15 @@ class UserApiService(context: Context) {
                         title.text = response.body()?.data?.title
                         desc.text = response.body()?.data?.description
 
-                        progressBar.visibility = View.GONE
+
                     } else {
                         Log.d(TAG, "Response Not Successfully")
-                        progressBar.visibility = View.GONE
                         shimmer.startShimmer()
                     }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     Log.d(TAG, t.message.toString())
-                    progressBar.visibility = View.GONE
                     shimmer.startShimmer()
                 }
 

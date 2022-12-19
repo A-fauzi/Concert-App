@@ -63,7 +63,7 @@
             android:text="Phone" />
 
         <TextView
-            android:id="@+id/profile_phone"
+            android:id="@+id/profile_phone_shimmer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_phone"
@@ -76,7 +76,7 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/profile_phone"
+            android:layout_below="@id/profile_phone_shimmer"
             android:layout_marginTop="@dimen/root_view_padding" />
     </RelativeLayout>
 

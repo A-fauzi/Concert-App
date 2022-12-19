@@ -16,6 +16,7 @@ import com.example.concert_app.data.concert.ConcertResponse
 import com.example.concert_app.databinding.FragmentAllGenresBinding
 import com.example.concert_app.view.main.fragment.ConcertDetailActivity
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
+import com.facebook.shimmer.ShimmerFrameLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,11 +34,11 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
 
     private lateinit var adapterListAllGenres: AdapterListConcert
 
-    private lateinit var progressbar: ProgressBar
+    private lateinit var shimmerViewContainer: ShimmerFrameLayout
 
     private fun initView() {
         rvList = binding.rvAllConcert
-        progressbar = binding.progressbar
+        shimmerViewContainer = binding.shimmerViewContainerAllGenre
     }
 
     override fun onCreateView(
@@ -52,6 +53,8 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
         setupRecyclerView()
 
         getDataConcert()
+
+        shimmerViewContainer.startShimmer()
 
         return binding.root
     }
@@ -83,18 +86,17 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
                     if (response.isSuccessful) {
                         val result = response.body()
                         showDataConcert(result!!)
-                        progressbar.visibility = View.GONE
                         rvList.visibility = View.VISIBLE
+                        shimmerViewContainer.stopShimmer()
+                        shimmerViewContainer.visibility = View.GONE
 
                     } else {
-                        progressbar.visibility = View.GONE
                         Log.d(TAG, "Response Not Successfully")
                     }
                 }
 
                 override fun onFailure(call: Call<ConcertResponse>, t: Throwable) {
                     Log.d(TAG, t.localizedMessage!!)
-                    progressbar.visibility = View.GONE
                 }
 
             })

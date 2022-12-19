@@ -15,10 +15,10 @@
         android:checkable="true"
         android:foreground="?selectableItemBackground"
         app:cardCornerRadius="16dp"
-        android:backgroundTint="@color/blue_soft">
+        android:backgroundTint="@color/blue_soft"
+        android:background="@drawable/gradient_bg">
 
         <ImageView
-            android:id="@+id/item_iv_all_concert"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/image_ini"
@@ -26,22 +26,18 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/item_tv_title"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
         android:text="Harry Styles"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gradient_bg"/>
 
     <TextView
-        android:id="@+id/item_tv_loc_date"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Jakarta, Des 15 2022 di hutanpinus bogor"
-        android:maxLines="3"
-        android:fontFamily="sans-serif"
-        android:ellipsize="end"/>
+        android:text="Jakarta, "
+        android:layout_marginTop="8dp"
+        android:background="@drawable/gradient_bg"/>
 
 
 </LinearLayout>
