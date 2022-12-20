@@ -9,15 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
 import com.example.concert_app.data.concert.ConcertResponse
 import com.example.concert_app.databinding.FragmentSearchConcertBinding
-import com.example.concert_app.remote.NetworkConfig
-import com.example.concert_app.utils.Libs
+import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
 import retrofit2.Call

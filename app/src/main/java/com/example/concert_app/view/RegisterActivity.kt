@@ -57,10 +57,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun currentUser() {
         user.let {
             if (it != null) {
-                Log.i(TAG, "user logged in")
-                Log.i(TAG, "name: ${it.displayName}")
-                Log.i(TAG, "email: ${it.email}")
-                Log.i(TAG, "photo profile: ${it.photoUrl}")
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {

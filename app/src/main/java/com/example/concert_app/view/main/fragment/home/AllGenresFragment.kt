@@ -7,15 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
-import com.example.concert_app.remote.NetworkConfig
+import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.data.concert.ConcertResponse
 import com.example.concert_app.databinding.FragmentAllGenresBinding
-import com.example.concert_app.utils.Libs
+import com.example.concert_app.service.api_whatsapp.WhatsappApiService
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.main.fragment.ConcertDetailActivity
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
@@ -96,11 +95,13 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
 
                     } else {
                         Log.d(TAG, "Response Not Successfully")
+                        WhatsappApiService().sendMessage("Response Not Successfully | GenreFragment | Line 98", "en_US")
                     }
                 }
 
                 override fun onFailure(call: Call<ConcertResponse>, t: Throwable) {
                     if(t is SocketTimeoutException){
+                        WhatsappApiService().sendMessage("${t.message} | GenreFragment | Line 103", "en_US")
                         Toast.makeText(requireActivity(), "Socket Time out. Please try again.", Toast.LENGTH_SHORT).show()
                         dialogMessageAnimate(
                             layoutInflater,
@@ -109,6 +110,8 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
                             R.raw.auth_failure,
                             t.message.toString()
                         )
+                    } else {
+                        WhatsappApiService().sendMessage("${t.message} | GenreFragment | Line 114", "en_US")
                     }
                 }
 

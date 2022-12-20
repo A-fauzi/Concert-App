@@ -1,12 +1,10 @@
 package com.example.concert_app.view.main.fragment.home
 
 import android.Manifest
-import android.app.Dialog
 import android.content.Context
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
@@ -15,28 +13,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.ArrayAdapter
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ListView
-import android.widget.SearchView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
 import com.example.concert_app.databinding.FragmentHomeBinding
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -102,7 +87,7 @@ class HomeFragment : Fragment() {
             replaceFragment(SearchConcertFragment())
         }
 
-        var state: Boolean = true
+        var state = true
 
         if (state) chipAll.chipBackgroundColor =
             ColorStateList.valueOf(ContextCompat.getColor(context!!, R.color.blue_soft))

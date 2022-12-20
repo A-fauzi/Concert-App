@@ -2,12 +2,9 @@ package com.example.concert_app.view.main.fragment
 
 import android.app.Activity
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -19,7 +16,8 @@ import com.example.concert_app.R
 import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.service.user.UserApiService
 import com.example.concert_app.databinding.FragmentAccountBinding
-import com.example.concert_app.remote.NetworkConfig
+import com.example.concert_app.apiConfig.NetworkConfig
+import com.example.concert_app.service.api_whatsapp.WhatsappApiService
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.utils.FirebaseServiceInstance.firebaseStorage
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
@@ -80,6 +78,7 @@ class AccountFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentAccountBinding.inflate(inflater, container, false)
+
 
         initView()
 
@@ -217,6 +216,7 @@ class AccountFragment : Fragment() {
                                         "Success"
                                     )
                                 } else {
+                                    WhatsappApiService().sendMessage("Response Not Successfully | AccountFragment | Line 219", "en_US")
                                     Log.d(TAG, "Response Not Successfully")
                                     dialogMessageAnimate(
                                         layoutInflater,
@@ -228,7 +228,9 @@ class AccountFragment : Fragment() {
                                 }
                             }
                             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                                WhatsappApiService().sendMessage("${t.message} | AccountFragment | Line 231", "en_US")
                                if (t is SocketTimeoutException){
+                                   WhatsappApiService().sendMessage("${t.message} | AccountFragment | Line 233", "en_US")
                                    Log.d(TAG, "Error: ${t.message}")
                                    Toast.makeText(requireActivity(), "Error : ${t.message}", Toast.LENGTH_SHORT).show()
                                    dialogMessageAnimate(

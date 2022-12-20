@@ -6,12 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import com.example.concert_app.remote.NetworkConfig
+import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.R
 import com.example.concert_app.data.user.UserModel
 import com.example.concert_app.data.user.UserRequest
 import com.example.concert_app.data.user.UserResponse
-import com.example.concert_app.utils.Libs
+import com.example.concert_app.service.api_whatsapp.WhatsappApiService
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.view.main.MainActivity
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -72,8 +72,9 @@ class UserApiService(context: Context) {
                         response.body()?.data?.pathStorageProfile?.let { saveData(ctx, it) }
 
                         shimmer.stopShimmer()
-                        shimmerSatuView.stopShimmer()
                         shimmer.visibility = View.GONE
+
+                        shimmerSatuView.stopShimmer()
                         shimmerSatuView.visibility = View.GONE
 
                         profileLayout.visibility = View.VISIBLE
@@ -105,13 +106,18 @@ class UserApiService(context: Context) {
 
                     } else {
                         Log.d(TAG, "Response Not Successfully")
-                        shimmer.startShimmer()
+                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
                     }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    Log.d(TAG, t.message.toString())
-                    shimmer.startShimmer()
+                    if (t is SocketTimeoutException) {
+                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
+                        Log.d(TAG, t.message.toString())
+                    } else {
+                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
+                        Log.d(TAG, t.message.toString())
+                    }
                 }
 
             })

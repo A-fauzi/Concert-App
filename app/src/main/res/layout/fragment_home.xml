@@ -42,10 +42,11 @@
                     android:id="@+id/iv_loc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_location_on_24"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    app:tint="@color/white" />
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    app:tint="@color/white"
+                    android:contentDescription="null" />
 
                 <TextView
                     android:id="@+id/tv_current_location"
@@ -76,7 +77,8 @@
                 android:text="All genres"
                 android:textStyle="bold"
                 style="@style/customChipStyle"
-                android:fontFamily="sans-serif"/>
+                android:fontFamily="sans-serif"
+                app:strokeColor="@null"/>
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_Pop"
                 android:layout_width="wrap_content"
@@ -84,7 +86,8 @@
                 android:text="Pop"
                 style="@style/customChipStyle"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif"/>
+                android:fontFamily="sans-serif"
+                app:strokeColor="@null"/>
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_rock"
                 android:layout_width="wrap_content"
@@ -92,7 +95,8 @@
                 android:text="Rock"
                 style="@style/customChipStyle"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif"/>
+                android:fontFamily="sans-serif"
+                app:strokeColor="@null"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_indie"
@@ -101,7 +105,8 @@
                 android:text="Indie"
                 style="@style/customChipStyle"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif"/>
+                android:fontFamily="sans-serif"
+                app:strokeColor="@null"/>
 
         </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
