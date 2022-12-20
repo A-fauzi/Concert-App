@@ -8,12 +8,9 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        tools:replace="android:allowBackup"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -23,8 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ConcertApp"
         android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup"
         tools:targetApi="31">
-
+        <activity
+            android:name=".RefreshConnectActivity"
+            android:exported="false" />
         <activity
             android:name=".view.main.fragment.ConcertDetailActivity"
             android:exported="false">

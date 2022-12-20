@@ -55,10 +55,10 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf="@id/iv_loc"
                     android:ems="10"
+                    android:fontFamily="sans-serif"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    tools:text="Jakasampurna, Kecamatan Bekasi Barat"
-                    android:fontFamily="sans-serif"/>
+                    tools:text="Jakasampurna, Kecamatan Bekasi Barat" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>

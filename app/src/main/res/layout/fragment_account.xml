@@ -50,8 +50,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="Profile"
                         android:fontFamily="sans-serif"
+                        android:text="Profile"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
@@ -122,7 +122,7 @@
                         android:padding="10dp"
                         android:minWidth="0dp"
                         app:strokeColor="@color/transparent"
-                        app:iconTint="@color/black"
+                        app:iconTint="@color/white"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
                         tools:ignore="RelativeOverlap" />
@@ -242,7 +242,9 @@
                 android:layout_marginStart="@dimen/root_view_padding"
                 android:layout_toEndOf="@id/iv_email"
                 android:fontFamily="sans-serif"
-                android:text="Email" />
+                android:text="Email"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/profile_email"
@@ -253,7 +255,9 @@
                 android:layout_marginStart="@dimen/root_view_padding"
                 android:layout_toEndOf="@id/iv_email"
                 android:fontFamily="sans-serif"
-                android:text="example@gmail.com" />
+                android:text="example@gmail.com"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
@@ -282,7 +286,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/root_view_padding"
                 android:layout_toEndOf="@id/iv_phone"
-                android:text="Phone" />
+                android:text="Phone"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/profile_phone"
@@ -293,7 +299,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/root_view_padding"
                 android:layout_toEndOf="@id/iv_phone"
-                android:text="08211296xxxx" />
+                android:text="08211296xxxx"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"

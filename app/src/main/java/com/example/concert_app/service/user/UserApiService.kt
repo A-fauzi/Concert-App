@@ -11,8 +11,8 @@ import com.example.concert_app.R
 import com.example.concert_app.data.user.UserModel
 import com.example.concert_app.data.user.UserRequest
 import com.example.concert_app.data.user.UserResponse
-import com.example.concert_app.service.api_whatsapp.WhatsappApiService
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
+import com.example.concert_app.utils.LocalKeys
 import com.example.concert_app.view.main.MainActivity
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Picasso
@@ -28,7 +28,7 @@ class UserApiService(context: Context) {
     private var ctx = context
 
     fun getUsers() {
-        NetworkConfig()
+        NetworkConfig(LocalKeys.LOCAL_BASE_URL)
             .getUserService()
             .getUsers()
             .enqueue(object : Callback<List<UserModel>> {
@@ -60,7 +60,7 @@ class UserApiService(context: Context) {
         profileLayout: LinearLayout,
         layoutItem1View: RelativeLayout,
     ) {
-        NetworkConfig()
+        NetworkConfig(LocalKeys.LOCAL_BASE_URL)
             .getUserService()
             .getUserById(uid)
             .enqueue(object : Callback<UserResponse> {
@@ -106,16 +106,16 @@ class UserApiService(context: Context) {
 
                     } else {
                         Log.d(TAG, "Response Not Successfully")
-                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
+//                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
                     }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     if (t is SocketTimeoutException) {
-                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
+//                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
                         Log.d(TAG, t.message.toString())
                     } else {
-                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
+//                        WhatsappApiService().sendMessage("Response Not Successfully | UserApiService | Line 109", "en_US")
                         Log.d(TAG, t.message.toString())
                     }
                 }
@@ -135,7 +135,7 @@ class UserApiService(context: Context) {
             description = "Belum ingin menulis sesuatu",
             pathStorageProfile = "profile path"
         )
-        NetworkConfig()
+        NetworkConfig(LocalKeys.LOCAL_BASE_URL)
             .getUserService()
             .addUser(user)
             .enqueue(object : Callback<UserRequest> {
@@ -181,7 +181,7 @@ class UserApiService(context: Context) {
             description = description,
             pathStorageProfile = pathStorageProfile
         )
-        NetworkConfig()
+        NetworkConfig(LocalKeys.LOCAL_BASE_URL)
             .getUserService()
             .updateUsers(uid, user)
             .enqueue(object : Callback<UserResponse> {

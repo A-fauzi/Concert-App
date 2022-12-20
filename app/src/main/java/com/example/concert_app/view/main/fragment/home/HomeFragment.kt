@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.concert_app.R
+import com.example.concert_app.data.whatsapp.ServiceImplement
 import com.example.concert_app.databinding.FragmentHomeBinding
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -75,6 +76,7 @@ class HomeFragment : Fragment() {
 
         // Current Location
         getCurrentLocation()
+
 
         return binding.root
     }

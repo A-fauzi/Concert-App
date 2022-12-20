@@ -102,19 +102,27 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ziva Magnoliya"/>
+                android:text="Ziva Magnoliya"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"/>
 
             <TextView
                 android:id="@+id/tv_date_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fri, April 15, 8:00 PM"/>
+                android:text="Fri, April 15, 8:00 PM"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"/>
 
             <TextView
                 android:id="@+id/tv_location_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mall Grand Indonesia, Jakarta"/>
+                android:text="Mall Grand Indonesia, Jakarta"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,7 +137,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_lorem"
                 android:ellipsize="end"
-                android:maxLines="5"/>
+                android:maxLines="5"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"/>
 
             <TextView
                 android:id="@+id/tv_read_more"
@@ -139,11 +149,23 @@
                 android:layout_marginTop="8dp"
                 android:textColor="@color/blue_soft"/>
 
-            <com.mapbox.mapboxsdk.maps.MapView
-                android:id="@+id/mapView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+           <FrameLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+               <com.mapbox.mapboxsdk.maps.MapView
+                   android:id="@+id/mapView"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   />
+               <Button
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="bottom|center_horizontal"
+                   android:text="Choose a ticket from stage"
+                   android:layout_marginBottom="8dp"
+                   android:background="@drawable/gradient_bg"/>
+           </FrameLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

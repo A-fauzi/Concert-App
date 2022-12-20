@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
 import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.data.concert.ConcertResponse
+import com.example.concert_app.data.whatsapp.ServiceImplement
 import com.example.concert_app.databinding.FragmentAllGenresBinding
-import com.example.concert_app.service.api_whatsapp.WhatsappApiService
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
+import com.example.concert_app.utils.LocalKeys
 import com.example.concert_app.view.main.fragment.ConcertDetailActivity
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -78,7 +79,7 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
     }
 
     private fun getDataConcert() {
-        NetworkConfig()
+        NetworkConfig(LocalKeys.LOCAL_BASE_URL)
             .getConcertService()
             .getConcerts()
             .enqueue(object : Callback<ConcertResponse> {
@@ -95,14 +96,14 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
 
                     } else {
                         Log.d(TAG, "Response Not Successfully")
-                        WhatsappApiService().sendMessage("Response Not Successfully | GenreFragment | Line 98", "en_US")
+                        ServiceImplement().sendMessage("report_bug", "Response Gagal Pada AllGenreFragment() | line 98", "en_US")
                     }
                 }
 
                 override fun onFailure(call: Call<ConcertResponse>, t: Throwable) {
                     if(t is SocketTimeoutException){
-                        WhatsappApiService().sendMessage("${t.message} | GenreFragment | Line 103", "en_US")
                         Toast.makeText(requireActivity(), "Socket Time out. Please try again.", Toast.LENGTH_SHORT).show()
+                        ServiceImplement().sendMessage("report_bug", "${t.message} | line 105", "en_US")
                         dialogMessageAnimate(
                             layoutInflater,
                             requireContext(),
@@ -111,7 +112,8 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
                             t.message.toString()
                         )
                     } else {
-                        WhatsappApiService().sendMessage("${t.message} | GenreFragment | Line 114", "en_US")
+                        ServiceImplement().sendMessage("report_bug", "${t.message} | line 114", "en_US")
+
                     }
                 }
 

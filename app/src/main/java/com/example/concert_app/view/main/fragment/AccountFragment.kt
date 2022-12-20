@@ -17,10 +17,10 @@ import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.service.user.UserApiService
 import com.example.concert_app.databinding.FragmentAccountBinding
 import com.example.concert_app.apiConfig.NetworkConfig
-import com.example.concert_app.service.api_whatsapp.WhatsappApiService
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.utils.FirebaseServiceInstance.firebaseStorage
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
+import com.example.concert_app.utils.LocalKeys
 import com.example.concert_app.view.LoginActivity
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
@@ -176,7 +176,7 @@ class AccountFragment : Fragment() {
                     val uriImg = uri.toString()
                     val uid = auth.currentUser!!.uid
 
-                    NetworkConfig()
+                    NetworkConfig(LocalKeys.LOCAL_BASE_URL)
                         .getUserService()
                         .getUserById(uid)
                         .enqueue(object : Callback<UserResponse> {
@@ -216,7 +216,6 @@ class AccountFragment : Fragment() {
                                         "Success"
                                     )
                                 } else {
-                                    WhatsappApiService().sendMessage("Response Not Successfully | AccountFragment | Line 219", "en_US")
                                     Log.d(TAG, "Response Not Successfully")
                                     dialogMessageAnimate(
                                         layoutInflater,
@@ -228,9 +227,8 @@ class AccountFragment : Fragment() {
                                 }
                             }
                             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                                WhatsappApiService().sendMessage("${t.message} | AccountFragment | Line 231", "en_US")
+
                                if (t is SocketTimeoutException){
-                                   WhatsappApiService().sendMessage("${t.message} | AccountFragment | Line 233", "en_US")
                                    Log.d(TAG, "Error: ${t.message}")
                                    Toast.makeText(requireActivity(), "Error : ${t.message}", Toast.LENGTH_SHORT).show()
                                    dialogMessageAnimate(
@@ -240,6 +238,8 @@ class AccountFragment : Fragment() {
                                        R.raw.auth_failure,
                                        t.message.toString()
                                    )
+                               } else {
+                                   Log.d(TAG, "Error: ${t.message}")
                                }
                             }
 

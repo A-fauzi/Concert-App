@@ -17,6 +17,7 @@ import com.example.concert_app.data.concert.ConcertResponse
 import com.example.concert_app.databinding.FragmentSearchConcertBinding
 import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
+import com.example.concert_app.utils.LocalKeys.LOCAL_BASE_URL
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
 import retrofit2.Call
 import retrofit2.Callback
@@ -75,7 +76,7 @@ class SearchConcertFragment : Fragment(), AdapterListConcert.CallClickListener {
     }
 
     private fun getDataConcertByArtist(artistName: String) {
-        NetworkConfig()
+        NetworkConfig(LOCAL_BASE_URL)
             .getConcertService()
             .getConcertByArtist(artistName)
             .enqueue(object : Callback<ConcertResponse> {
@@ -129,7 +130,8 @@ class SearchConcertFragment : Fragment(), AdapterListConcert.CallClickListener {
             when(view.id) {
                 R.id.et_search_concert -> {
                     Log.d("textWatcher", text)
-                    getDataConcertByArtist(text)
+                    getDataConcertByArtist(text.uppercase())
+                    getDataConcertByArtist(text.lowercase())
                 }
             }
         }

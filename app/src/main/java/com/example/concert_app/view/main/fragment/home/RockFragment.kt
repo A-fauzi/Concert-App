@@ -15,6 +15,7 @@ import com.example.concert_app.data.concert.ConcertResponse
 import com.example.concert_app.databinding.FragmentRockBinding
 import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
+import com.example.concert_app.utils.LocalKeys
 import com.example.concert_app.view.main.fragment.home.adapter.AdapterListConcert
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,7 +70,7 @@ class RockFragment : Fragment(), AdapterListConcert.CallClickListener {
     }
 
     private fun getDataConcertByGenre(genre: String) {
-        NetworkConfig()
+        NetworkConfig(LocalKeys.LOCAL_BASE_URL)
             .getConcertService()
             .getConcertByGenre(genre)
             .enqueue(object : Callback<ConcertResponse> {

@@ -5,12 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.concert_app.R
-import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.databinding.FragmentMessageBinding
-import com.example.concert_app.service.api_whatsapp.Whatsapp
-import com.example.concert_app.service.api_whatsapp.WhatsappApiService
-import retrofit2.Retrofit
 
 class MessageFragment : Fragment() {
 

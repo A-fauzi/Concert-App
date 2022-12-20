@@ -2,7 +2,7 @@ package com.example.concert_app.data.whatsapp
 
 import com.google.gson.annotations.SerializedName
 
-data class RequestWhatsappModelWithVariable(
+data class WhatsappMessageRequest(
 
 	@field:SerializedName("template")
 	val template: Template? = null,
@@ -15,12 +15,6 @@ data class RequestWhatsappModelWithVariable(
 
 	@field:SerializedName("type")
 	val type: String? = null
-)
-
-data class Language(
-
-	@field:SerializedName("code")
-	val code: String? = null
 )
 
 data class Template(
@@ -51,4 +45,10 @@ data class ParametersItem(
 
 	@field:SerializedName("type")
 	val type: String? = null
+)
+
+data class Language(
+
+	@field:SerializedName("code")
+	val code: String? = null
 )

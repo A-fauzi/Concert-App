@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="8dp"
     android:layout_marginEnd="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,7 +22,7 @@
             android:id="@+id/item_iv_all_concert"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/image_ini"
+            tools:src="@drawable/image_ini"
             android:scaleType="centerCrop"/>
     </com.google.android.material.card.MaterialCardView>
 
@@ -31,8 +32,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:text="Harry Styles"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/item_tv_loc_date"
@@ -41,7 +43,8 @@
         android:text="Jakarta, Des 15 2022 di hutanpinus bogor"
         android:maxLines="3"
         android:fontFamily="sans-serif"
-        android:ellipsize="end"/>
+        android:ellipsize="end"
+        android:textColor="@color/black"/>
 
 
 </LinearLayout>
