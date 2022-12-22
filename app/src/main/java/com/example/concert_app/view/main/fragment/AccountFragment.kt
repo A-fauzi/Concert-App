@@ -21,6 +21,7 @@ import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.utils.FirebaseServiceInstance.firebaseStorage
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.utils.LocalKeys
+import com.example.concert_app.utils.Preference.loadData
 import com.example.concert_app.view.LoginActivity
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
@@ -159,7 +160,7 @@ class AccountFragment : Fragment() {
             val refStorage =
                 firebaseStorage.reference.child("/images_profile/${auth.currentUser?.email}/$fillName")
             refStorage.putFile(uriPath).addOnSuccessListener {
-                val pathStorage = UserApiService(requireActivity()).loadData(requireActivity())
+                val pathStorage = loadData(requireActivity())
                 if (pathStorage != null) {
                     Log.d("storage", pathStorage)
                     val refStorageDelete =

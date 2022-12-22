@@ -13,6 +13,7 @@ import com.example.concert_app.data.user.UserRequest
 import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
 import com.example.concert_app.utils.LocalKeys
+import com.example.concert_app.utils.Preference.saveData
 import com.example.concert_app.view.main.MainActivity
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.squareup.picasso.Picasso
@@ -22,8 +23,6 @@ import retrofit2.Response
 import java.net.SocketTimeoutException
 
 class UserApiService(context: Context) {
-
-    private lateinit var sharedPreferences: SharedPreferences
 
     private var ctx = context
 
@@ -123,7 +122,7 @@ class UserApiService(context: Context) {
             })
     }
 
-    fun postData(name: String, phone: String, email: String, id: String, gender: String, layoutInflater: LayoutInflater) {
+    fun postData(name: String, phone: String, email: String, id: String, gender: String, layoutInflater: LayoutInflater, TAG: String) {
         val user = UserRequest(
             photoUrl = "https://ibb.co/XZ8hcVm",
             phone = phone,
@@ -140,7 +139,7 @@ class UserApiService(context: Context) {
             .addUser(user)
             .enqueue(object : Callback<UserRequest> {
                 override fun onResponse(call: Call<UserRequest>, response: Response<UserRequest>) {
-                    Log.d(MainActivity.TAG, "Data created and add to API")
+                    Log.d(TAG, "Data created and add to API")
                 }
 
                 override fun onFailure(call: Call<UserRequest>, t: Throwable) {
@@ -197,19 +196,5 @@ class UserApiService(context: Context) {
                 }
 
             })
-    }
-
-    fun saveData(context: Context, value: String) {
-        sharedPreferences = context.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.apply {
-            putString("PATH_STORAGE_KEY", value)
-        }.apply()
-    }
-
-    fun loadData(context: Context): String? {
-        sharedPreferences = context.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-
-        return sharedPreferences.getString("PATH_STORAGE_KEY", null)
     }
 }

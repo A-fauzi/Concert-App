@@ -9,12 +9,14 @@ import retrofit2.Response
 import java.net.SocketTimeoutException
 
 class ServiceImplement {
-    fun sendMessage(templateName: String, paramText: String, langCode: String) {
+    fun sendMessage(templateName: String, paramText1: String, paramText2: String, paramText3: String, langCode: String) {
 
         val language = Language(langCode)
 
-        val parameter = ParametersItem(paramText, "text")
-        val arrPar = arrayListOf(parameter)
+        val parameter1 = ParametersItem(paramText1, "text")
+        val parameter2 = ParametersItem(paramText2, "text")
+        val parameter3 = ParametersItem(paramText3, "text")
+        val arrPar = arrayListOf(parameter1, parameter2, parameter3)
 
         val componentItem = ComponentsItem(
             "body",

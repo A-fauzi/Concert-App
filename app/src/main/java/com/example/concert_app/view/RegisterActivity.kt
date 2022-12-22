@@ -15,6 +15,8 @@ import com.example.concert_app.service.user.UserApiService
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.R
 import com.example.concert_app.databinding.ActivityRegisterBinding
+import com.example.concert_app.utils.FirebaseServiceInstance.databaseReference
+import com.example.concert_app.utils.FirebaseServiceInstance.firebaseDatabase
 import com.example.concert_app.utils.FirebaseServiceInstance.user
 import com.example.concert_app.view.main.MainActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -259,8 +261,10 @@ class RegisterActivity : AppCompatActivity() {
                     val email = email.text.toString()
                     val gender = enableRadioGroup().lowercase()
 
+                    saveData(uid)
+
                     val apiService = UserApiService(this)
-                    apiService.postData(name, phone, email, uid, gender, layoutInflater)
+                    apiService.postData(name, phone, email, uid, gender, layoutInflater, TAG)
 
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
@@ -275,5 +279,33 @@ class RegisterActivity : AppCompatActivity() {
                 progressBar.visibility = View.GONE
                 Log.d(TAG, it.message.toString())
             }
+    }
+
+    private fun saveData(uid: String) {
+        databaseReference = firebaseDatabase.getReference("users").child(uid)
+
+        val hashMap: HashMap<String, String> = HashMap()
+        val userId = auth.currentUser!!.uid
+        val name = name.text.toString()
+        val phone = phone.text.toString()
+        val email = email.text.toString()
+        val gender = enableRadioGroup().lowercase()
+
+        hashMap["user_id"] = userId
+        hashMap["name"] = name
+        hashMap["phone"] = phone
+        hashMap["email"] = email
+        hashMap["gender"] = gender
+
+        databaseReference.setValue(hashMap).addOnCompleteListener { database ->
+            if (database.isSuccessful) {
+                Log.i(TAG, "Succesfully save data in realtime database")
+            } else {
+                Log.w(TAG, "Failure save data in database")
+            }
+        }.addOnFailureListener {
+            Log.w(TAG, it.message.toString())
+        }
+
     }
 }

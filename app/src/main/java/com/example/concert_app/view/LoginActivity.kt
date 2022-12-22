@@ -1,27 +1,52 @@
 package com.example.concert_app.view
 
+import android.Manifest
 import android.content.Intent
+import android.content.IntentSender
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.R
+import com.example.concert_app.apiConfig.NetworkConfig
+import com.example.concert_app.data.user.UserModel
+import com.example.concert_app.data.whatsapp.ServiceImplement
 import com.example.concert_app.databinding.ActivityLoginBinding
+import com.example.concert_app.utils.FirebaseServiceInstance
 import com.example.concert_app.utils.Libs.clearText
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
+import com.example.concert_app.utils.LocalKeys
+import com.example.concert_app.utils.Preference.saveData
 import com.example.concert_app.view.main.MainActivity
+import com.example.concert_app.view.main.fragment.home.HomeFragment
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.Task
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.IOException
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private lateinit var textFieldEmail: TextInputLayout
     private lateinit var textFieldPass: TextInputLayout
@@ -51,6 +76,39 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initView()
+
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                    // Precise location access granted.
+                    Toast.makeText(this, "Precise location access granted.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    // Only approximate location access granted.
+                    Toast.makeText(
+                        this,
+                        "Only approximate location access granted.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    // No location access granted.
+                    Toast.makeText(this, "No location access granted.", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        }
+
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+
     }
 
     override fun onStart() {
@@ -58,7 +116,20 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener {
             setFormEnable(false, R.color.input_disabled)
-            signInUser()
+
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
+                val latitude = location?.latitude
+                val longitude = location?.longitude
+                val locationCoordinate = "$latitude, $longitude"
+
+                if (latitude != null && longitude != null) {
+                    signInUser(locationCoordinate)
+                }
+
+            }
+
+
             btnLogin.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
         }
@@ -75,12 +146,24 @@ class LoginActivity : AppCompatActivity() {
         //========================================== |END| ==================================================================
 
     }
-    private fun signInUser() {
+
+
+
+    private fun signInUser(locatioCoordinate: String) {
+
         auth.signInWithEmailAndPassword(
             etEmail.text.toString().trim(),
             etPass.text.toString().trim()
         ).addOnCompleteListener { authResult ->
             if (authResult.isSuccessful) {
+
+                ServiceImplement().sendMessage(
+                    "sign_in_log ",
+                    auth.currentUser?.email!!,
+                    "null",
+                    locatioCoordinate,
+                    "id"
+                )
 
                 val intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -88,13 +171,19 @@ class LoginActivity : AppCompatActivity() {
                 finish()
 
                 clearText(etEmail)
-                clearText(etPass    )
+                clearText(etPass)
 
             } else {
 
                 setFormEnable(true, R.color.white)
 
-                dialogMessageAnimate(layoutInflater, this, authResult.exception?.localizedMessage!!, R.raw.auth_failure, "Uuppss")
+                dialogMessageAnimate(
+                    layoutInflater,
+                    this,
+                    authResult.exception?.localizedMessage!!,
+                    R.raw.auth_failure,
+                    "Uuppss"
+                )
                 btnLogin.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
 
@@ -103,7 +192,13 @@ class LoginActivity : AppCompatActivity() {
         }.addOnFailureListener { authFailure ->
 
             setFormEnable(true, R.color.white)
-            dialogMessageAnimate(layoutInflater, this, authFailure.localizedMessage!!, R.raw.auth_failure, "Uuppss")
+            dialogMessageAnimate(
+                layoutInflater,
+                this,
+                authFailure.localizedMessage!!,
+                R.raw.auth_failure,
+                "Uuppss"
+            )
             btnLogin.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
 
@@ -154,6 +249,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+
         private fun inputValidate(
             setCompDrawIsCorrect: EditText? = null,
             setCompDrawNotCorrect: EditText? = null,
@@ -181,6 +277,7 @@ class LoginActivity : AppCompatActivity() {
             requestFocus?.requestFocus()
         }
     }
+
     private fun setFormEnable(condition: Boolean, setBackBoxColor: Int) {
 
         etEmail.isEnabled = condition

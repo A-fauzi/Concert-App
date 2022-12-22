@@ -130,8 +130,7 @@ class SearchConcertFragment : Fragment(), AdapterListConcert.CallClickListener {
             when(view.id) {
                 R.id.et_search_concert -> {
                     Log.d("textWatcher", text)
-                    getDataConcertByArtist(text.uppercase())
-                    getDataConcertByArtist(text.lowercase())
+                    getDataConcertByArtist(text)
                 }
             }
         }

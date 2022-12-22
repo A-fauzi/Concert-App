@@ -22,9 +22,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
-        <activity
-            android:name=".RefreshConnectActivity"
-            android:exported="false" />
+
         <activity
             android:name=".view.main.fragment.ConcertDetailActivity"
             android:exported="false">

@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.concert_app.R
 import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.data.concert.ConcertResponse
@@ -40,9 +42,15 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
 
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
 
+    private lateinit var swipeRefresh: SwipeRefreshLayout
+
+    private lateinit var tvRefreshView: TextView
+
     private fun initView() {
         rvList = binding.rvAllConcert
         shimmerViewContainer = binding.shimmerViewContainerAllGenre
+        swipeRefresh = binding.swiperefresh
+        tvRefreshView = binding.tvRefreshView
     }
 
     override fun onCreateView(
@@ -76,6 +84,15 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
         super.onViewCreated(view, savedInstanceState)
 
 
+        swipeRefresh.setOnRefreshListener {
+            setupRecyclerView()
+
+            getDataConcert()
+
+            shimmerViewContainer.startShimmer()
+
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun getDataConcert() {
@@ -95,15 +112,17 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
                         shimmerViewContainer.visibility = View.GONE
 
                     } else {
+                        shimmerViewContainer.visibility = View.GONE
+                        tvRefreshView.visibility = View.VISIBLE
                         Log.d(TAG, "Response Not Successfully")
-                        ServiceImplement().sendMessage("report_bug", "Response Gagal Pada AllGenreFragment() | line 98", "en_US")
-                    }
+                      }
                 }
 
                 override fun onFailure(call: Call<ConcertResponse>, t: Throwable) {
                     if(t is SocketTimeoutException){
-                        Toast.makeText(requireActivity(), "Socket Time out. Please try again.", Toast.LENGTH_SHORT).show()
-                        ServiceImplement().sendMessage("report_bug", "${t.message} | line 105", "en_US")
+                        shimmerViewContainer.visibility = View.GONE
+                        tvRefreshView.visibility = View.VISIBLE
+                        Toast.makeText(requireContext()  , "Socket Time out. Please try again.", Toast.LENGTH_SHORT).show()
                         dialogMessageAnimate(
                             layoutInflater,
                             requireContext(),
@@ -112,8 +131,8 @@ class AllGenresFragment : Fragment(), AdapterListConcert.CallClickListener {
                             t.message.toString()
                         )
                     } else {
-                        ServiceImplement().sendMessage("report_bug", "${t.message} | line 114", "en_US")
-
+                        shimmerViewContainer.visibility = View.GONE
+                        tvRefreshView.visibility = View.VISIBLE
                     }
                 }
 
