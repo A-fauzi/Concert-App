@@ -18,6 +18,7 @@ import com.example.concert_app.databinding.ActivityRegisterBinding
 import com.example.concert_app.utils.FirebaseServiceInstance.databaseReference
 import com.example.concert_app.utils.FirebaseServiceInstance.firebaseDatabase
 import com.example.concert_app.utils.FirebaseServiceInstance.user
+import com.example.concert_app.utils.Libs.simpleDateFormat
 import com.example.concert_app.view.main.MainActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -291,11 +292,17 @@ class RegisterActivity : AppCompatActivity() {
         val email = email.text.toString()
         val gender = enableRadioGroup().lowercase()
 
-        hashMap["user_id"] = userId
-        hashMap["name"] = name
+        hashMap["photoUrl"] = "https://ibb.co/XZ8hcVm"
         hashMap["phone"] = phone
+        hashMap["name"] = name
         hashMap["email"] = email
+        hashMap["id"] = userId
         hashMap["gender"] = gender
+        hashMap["title"] = "Hobi | Pekerjaan | ETC"
+        hashMap["description"] = "Belum ingin menulis sesuatu"
+        hashMap["pathStorageProfile"] = "profile path"
+        hashMap["createdDate"] = simpleDateFormat()
+        hashMap["modifiedDate"] = simpleDateFormat()
 
         databaseReference.setValue(hashMap).addOnCompleteListener { database ->
             if (database.isSuccessful) {

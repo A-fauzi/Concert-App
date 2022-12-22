@@ -8,6 +8,8 @@ import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.concert_app.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Libs {
     fun clearText(inputText: EditText) {
@@ -36,6 +38,11 @@ object Libs {
         }
         dialog.show()
 
+    }
+
+    fun simpleDateFormat(): String {
+        val dateFormat = SimpleDateFormat("dd MMMM yyyy HH:mm:ss", Locale("id"))
+        return dateFormat.format(Date())
     }
 
 }

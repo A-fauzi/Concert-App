@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.main.fragment.message.ChatActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:subtitle="Sub"
+        app:title="AndroidlyToolbar">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/root_view_padding">
+
+            <TextView
+                android:id="@+id/tv_user_name_receiver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="sans-serif"
+                android:text="Profile"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="write message"
+        android:layout_alignParentBottom="true"/>
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="0dp"
+        android:padding="10dp"
+        app:icon="@drawable/ic_baseline_send_24"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:strokeColor="@color/transparent"
+        tools:ignore="RelativeOverlap"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

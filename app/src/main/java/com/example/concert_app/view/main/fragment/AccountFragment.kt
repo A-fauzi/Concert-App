@@ -17,12 +17,16 @@ import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.service.user.UserApiService
 import com.example.concert_app.databinding.FragmentAccountBinding
 import com.example.concert_app.apiConfig.NetworkConfig
+import com.example.concert_app.utils.FirebaseServiceInstance
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.utils.FirebaseServiceInstance.firebaseStorage
+import com.example.concert_app.utils.Libs
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
+import com.example.concert_app.utils.Libs.simpleDateFormat
 import com.example.concert_app.utils.LocalKeys
 import com.example.concert_app.utils.Preference.loadData
 import com.example.concert_app.view.LoginActivity
+import com.example.concert_app.view.RegisterActivity
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
 import retrofit2.Call
@@ -194,8 +198,10 @@ class AccountFragment : Fragment() {
                                     val title = response.body()?.data?.title
                                     val desc = response.body()?.data?.description
                                     val pathStorage = response.body()?.data?.pathStorageProfile
+                                    val date = response.body()?.data?.createdDate
 
-                                    if (id != null && name != null && phone != null && email != null && gender != null && title != null && desc != null && pathStorage != null) {
+                                    if (id != null && name != null && phone != null && email != null && gender != null && title != null && desc != null && pathStorage != null && date != null) {
+                                        saveData(id, name, phone, email, uriImg, date)
                                         UserApiService(requireActivity()).updateUser(
                                             id,
                                             name,
@@ -283,5 +289,41 @@ class AccountFragment : Fragment() {
     }
 
 
+    private fun saveData(
+        uid: String,
+        namePar: String,
+        phonePar: String,
+        emailPar: String,
+        photoUrl: String,
+        date: String
+    ) {
+        FirebaseServiceInstance.databaseReference =
+            FirebaseServiceInstance.firebaseDatabase.getReference("users").child(uid)
+
+        val hashMap: HashMap<String, String> = HashMap()
+
+        hashMap["photoUrl"] = photoUrl
+        hashMap["phone"] = phonePar
+        hashMap["name"] = namePar
+        hashMap["email"] = emailPar
+        hashMap["id"] = uid
+        hashMap["title"] = "Hobi | Pekerjaan | ETC"
+        hashMap["description"] = "Belum ingin menulis sesuatu"
+        hashMap["pathStorageProfile"] = "profile path"
+        hashMap["createdDate"] = date
+        hashMap["modifiedDate"] = simpleDateFormat()
+
+        FirebaseServiceInstance.databaseReference.setValue(hashMap)
+            .addOnCompleteListener { database ->
+                if (database.isSuccessful) {
+                    Log.i(RegisterActivity.TAG, "Succesfully update data in realtime database")
+                } else {
+                    Log.w(RegisterActivity.TAG, "Failure update data in database")
+                }
+            }.addOnFailureListener {
+                Log.w(RegisterActivity.TAG, it.message.toString())
+            }
+
+    }
 
 }

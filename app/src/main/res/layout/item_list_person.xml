@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="@dimen/root_view_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/root_view_padding"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        android:id="@+id/item_layout_card">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_item_person"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/img_placeholder_man" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toEndOf="@id/iv_item_person"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp">
+
+            <TextView
+                android:id="@+id/tv_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Akhmad Fauzi"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tv_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="message ..."/>
+        </LinearLayout>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
