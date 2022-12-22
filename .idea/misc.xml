@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/drawable/gradient_bg.xml" value="0.1775" />
+        <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/drawable/item_left_side.xml" value="0.116" />
+        <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/drawable/item_right_side.xml" value="0.116" />
+        <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/drawable/item_right_side_background.xml" value="0.1775" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/activity_chat.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/activity_concert_detailctivity.xml" value="0.25" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/activity_login.xml" value="0.17685185185185184" />
@@ -20,11 +23,13 @@
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/fragment_search_concert.xml" value="0.22" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/fragment_ticket.xml" value="0.17685185185185184" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/item_all_concert.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/item_left_chat.xml" value="0.22" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/item_list_message_person.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/item_list_person.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/item_load_shimmer_1_view.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/item_load_shimmer_all_genre.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/item_load_shimmer_profile.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/item_right_chat.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/akhma/DEVELOPMENT/ANDROID/MY-PROJECT/ConcertApp/app/src/main/res/layout/search_concert_bottom_sheet.xml" value="0.22447916666666667" />
       </map>
     </option>

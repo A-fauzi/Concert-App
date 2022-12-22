@@ -79,6 +79,8 @@ class TicketFragment : Fragment(), AdapterListPerson.CallClickListener {
     override fun onClickItem(data: UserModel) {
         val bundle = Bundle()
         bundle.putString("name", data.name)
+        bundle.putString("photo", data.photoUrl)
+        bundle.putString("userId", data.id)
 
         val intent = Intent(requireActivity(), ChatActivity::class.java)
         intent.putExtras(bundle)

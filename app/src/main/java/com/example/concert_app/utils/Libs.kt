@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.concert_app.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.security.SecureRandom
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,6 +44,12 @@ object Libs {
     fun simpleDateFormat(): String {
         val dateFormat = SimpleDateFormat("dd MMMM yyyy HH:mm:ss", Locale("id"))
         return dateFormat.format(Date())
+    }
+
+    fun randomString(len: Int): String {
+        val random = SecureRandom()
+        val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray()
+        return (1..len).map { chars[random.nextInt(chars.size)] }.joinToString("")
     }
 
 }

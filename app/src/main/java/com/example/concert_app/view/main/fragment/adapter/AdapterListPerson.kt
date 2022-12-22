@@ -1,11 +1,13 @@
 package com.example.concert_app.view.main.fragment.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
 import com.example.concert_app.data.user.UserModel
 import com.example.concert_app.databinding.ItemListPersonBinding
+import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.squareup.picasso.Picasso
 
 class AdapterListPerson(
@@ -22,15 +24,19 @@ class AdapterListPerson(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
             with(itemList[position]) {
-                Picasso.get()
-                    .load(photoUrl)
-                    .placeholder(R.drawable.img_placeholder_man)
-                    .error(R.mipmap.ic_launcher)
-                    .into(binding.ivItemPerson)
-                binding.tvItemName.text = name
-                binding.tvItemTitle.text = title
-                binding.itemLayoutCard.setOnClickListener {
-                    callClickListener.onClickItem(itemList[position])
+                if (id != auth.currentUser?.uid) {
+                    Picasso.get()
+                        .load(photoUrl)
+                        .placeholder(R.drawable.img_placeholder_man)
+                        .error(R.mipmap.ic_launcher)
+                        .into(binding.ivItemPerson)
+                    binding.tvItemName.text = name
+                    binding.tvItemTitle.text = title
+                    binding.itemLayoutCard.setOnClickListener {
+                        callClickListener.onClickItem(itemList[position])
+                    }
+                } else {
+                    binding.itemLayoutCard.visibility = View.GONE
                 }
             }
         }

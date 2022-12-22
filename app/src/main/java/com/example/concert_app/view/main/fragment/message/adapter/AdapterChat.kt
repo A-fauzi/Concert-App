@@ -49,10 +49,10 @@ class AdapterChat(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (itemList[position].senderId == user?.uid) {
-            MESSAGE_TYPE_RIGHT
-        } else {
+        return if (itemList[position].senderId != auth.currentUser?.uid) {
             MESSAGE_TYPE_LEFT
+        } else {
+            MESSAGE_TYPE_RIGHT
         }
     }
 }
