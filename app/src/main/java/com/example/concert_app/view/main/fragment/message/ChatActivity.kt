@@ -101,6 +101,10 @@ class ChatActivity : AppCompatActivity() {
         databaseReference.setValue(hashmap).addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(this, "Success sending message", Toast.LENGTH_SHORT).show()
+                val photo = intent.extras?.getString("photo")
+                if (photo != null) {
+                    receiver(receiverId, message, photo)
+                }
             } else {
                 Toast.makeText(this, "Failure sending message", Toast.LENGTH_SHORT).show()
             }
@@ -133,5 +137,24 @@ class ChatActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun receiver(receiverId: String, message: String, photoUrl: String) {
+        databaseReference = firebaseDatabase.getReference("receiver").child(auth.currentUser?.uid ?: "").child(receiverId)
+        val hashmap : HashMap<String, String> = HashMap()
+        hashmap["receiverId"] = receiverId
+        hashmap["message"] = message
+        hashmap["photoUrl"] = photoUrl
+        hashmap["time"] = simpleDateFormat()
+
+        databaseReference.setValue(hashmap).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(this, "Receiver saved", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Receiver not saved", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+        }
     }
 }
