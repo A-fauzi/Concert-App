@@ -7,13 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
 import com.example.concert_app.data.user.ChatModel
-import com.example.concert_app.data.user.UserModel
-import com.example.concert_app.databinding.ItemLeftChatBinding
-import com.example.concert_app.databinding.ItemRightChatBinding
-import com.example.concert_app.utils.FirebaseServiceInstance
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
-import com.example.concert_app.utils.FirebaseServiceInstance.user
-import com.google.firebase.auth.FirebaseUser
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
