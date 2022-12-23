@@ -26,13 +26,14 @@
                 android:layout_centerInParent="true"
                 android:fontFamily="sans-serif"
                 android:text="Profile"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_person_receiver"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/img_placeholder_man"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/img_placeholder_man" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>

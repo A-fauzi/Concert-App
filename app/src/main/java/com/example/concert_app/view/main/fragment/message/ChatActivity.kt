@@ -64,8 +64,21 @@ class ChatActivity : AppCompatActivity() {
             if (message.isEmpty()) {
                 Toast.makeText(this, "Message is empty", Toast.LENGTH_SHORT).show()
             } else {
-                if (userId != null) {
-                    sendMessage(auth.currentUser?.uid ?: "", userId, message)
+                if (userId != null && photo != null) {
+                    databaseReference = firebaseDatabase.getReference("users").child(auth.currentUser?.uid ?: "")
+                    databaseReference.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                val photoUrl = snapshot.child("photoUrl").value.toString()
+                                sendMessage(auth.currentUser?.uid ?: "", userId, message, photoUrl)
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
                 }
                 inputSendMessage.setText("")
             }
@@ -76,12 +89,13 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendMessage(senderId: String, receiverId: String, message: String) {
+    private fun sendMessage(senderId: String, receiverId: String, message: String, photoUrl: String) {
         databaseReference = firebaseDatabase.getReference("messages").child(randomString(25))
         val hashmap : HashMap<String, String> = HashMap()
         hashmap["senderId"] = senderId
         hashmap["receiverId"] = receiverId
         hashmap["message"] = message
+        hashmap["photoUrl"] = photoUrl
         hashmap["time"] = simpleDateFormat()
 
         databaseReference.setValue(hashmap).addOnCompleteListener {

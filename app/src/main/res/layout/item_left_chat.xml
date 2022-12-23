@@ -19,5 +19,6 @@
         android:layout_toEndOf="@id/item_iv_chat"
         android:background="@drawable/item_left_side_background"
         android:padding="8dp"
-        android:text="message .." />
+        android:text="message .."
+        android:textColor="@color/black"/>
 </RelativeLayout>

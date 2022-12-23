@@ -15,6 +15,7 @@ import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.utils.FirebaseServiceInstance.user
 import com.google.firebase.auth.FirebaseUser
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class AdapterChat(
     private val itemList: ArrayList<ChatModel>
@@ -25,7 +26,7 @@ class AdapterChat(
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val txtMessage: TextView = view.findViewById(R.id.item_tv_chat)
-//        val imgUser: TextView = view.findViewById(R.id.item_iv_chat)
+        val imgUser: CircleImageView = view.findViewById(R.id.item_iv_chat)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,7 +42,9 @@ class AdapterChat(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chat = itemList[position]
         holder.txtMessage.text = chat.message
-//        Picasso.get().load(auth.curren)
+
+        Picasso.get().load(chat.photoUrl).error(R.mipmap.ic_launcher).placeholder(R.drawable.img_placeholder_man).into(holder.imgUser)
+
     }
 
     override fun getItemCount(): Int {
