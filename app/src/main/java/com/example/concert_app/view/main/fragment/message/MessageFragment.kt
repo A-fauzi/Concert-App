@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.data.user.Message
@@ -13,6 +14,7 @@ import com.example.concert_app.databinding.FragmentMessageBinding
 import com.example.concert_app.utils.FirebaseServiceInstance.auth
 import com.example.concert_app.utils.FirebaseServiceInstance.databaseReference
 import com.example.concert_app.utils.FirebaseServiceInstance.firebaseDatabase
+import com.example.concert_app.utils.Preference
 import com.example.concert_app.view.main.fragment.adapter.ListPersonMessageAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -54,7 +56,9 @@ class MessageFragment : Fragment() {
 
         listPersonMessage = arrayListOf<Message>()
 
-        databaseReference = firebaseDatabase.getReference("users").child(auth.currentUser?.uid ?: "").child("messages")
+        val receiverId = Preference.loadData(requireActivity(), "RECEIVER_ID_KEY")
+
+        databaseReference = firebaseDatabase.getReference("receiver").child(auth.currentUser!!.uid)
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                if (snapshot.exists()) {
@@ -65,6 +69,7 @@ class MessageFragment : Fragment() {
                            listPersonMessage.add(lst)
                        }
                    }
+                   Log.i(TAG, listPersonMessage.toString())
                    rvList.adapter = ListPersonMessageAdapter(listPersonMessage)
                }
             }

@@ -14,6 +14,7 @@ import com.example.concert_app.utils.FirebaseServiceInstance.firebaseDatabase
 import com.example.concert_app.utils.Libs
 import com.example.concert_app.utils.Libs.randomString
 import com.example.concert_app.utils.Libs.simpleDateFormat
+import com.example.concert_app.utils.Preference
 import com.example.concert_app.view.main.fragment.message.adapter.AdapterChat
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -70,7 +71,10 @@ class ChatActivity : AppCompatActivity() {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (snapshot.exists()) {
                                 val photoUrl = snapshot.child("photoUrl").value.toString()
-                                sendMessage(auth.currentUser?.uid ?: "", userId, message, photoUrl)
+                                val name = intent.extras?.getString("name")
+                                if (name != null) {
+                                    sendMessage(auth.currentUser?.uid ?: "", userId, message, photoUrl, name)
+                                }
                             }
                         }
 
@@ -89,10 +93,11 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendMessage(senderId: String, receiverId: String, message: String, photoUrl: String) {
+    private fun sendMessage(senderId: String, receiverId: String, message: String, photoUrl: String, name: String) {
         databaseReference = firebaseDatabase.getReference("messages").child(randomString(25))
         val hashmap : HashMap<String, String> = HashMap()
         hashmap["senderId"] = senderId
+        hashmap["name"] = name
         hashmap["receiverId"] = receiverId
         hashmap["message"] = message
         hashmap["photoUrl"] = photoUrl
@@ -101,9 +106,10 @@ class ChatActivity : AppCompatActivity() {
         databaseReference.setValue(hashmap).addOnCompleteListener {
             if (it.isSuccessful) {
                 Toast.makeText(this, "Success sending message", Toast.LENGTH_SHORT).show()
+                Preference.saveData(this, receiverId, "RECEIVER_ID_KEY")
                 val photo = intent.extras?.getString("photo")
                 if (photo != null) {
-                    receiver(receiverId, message, photo)
+                    receiver(receiverId, message, photo, name)
                 }
             } else {
                 Toast.makeText(this, "Failure sending message", Toast.LENGTH_SHORT).show()
@@ -139,10 +145,11 @@ class ChatActivity : AppCompatActivity() {
         })
     }
 
-    private fun receiver(receiverId: String, message: String, photoUrl: String) {
+    private fun receiver(receiverId: String, message: String, photoUrl: String, name: String) {
         databaseReference = firebaseDatabase.getReference("receiver").child(auth.currentUser?.uid ?: "").child(receiverId)
         val hashmap : HashMap<String, String> = HashMap()
         hashmap["receiverId"] = receiverId
+        hashmap["name"] = name
         hashmap["message"] = message
         hashmap["photoUrl"] = photoUrl
         hashmap["time"] = simpleDateFormat()

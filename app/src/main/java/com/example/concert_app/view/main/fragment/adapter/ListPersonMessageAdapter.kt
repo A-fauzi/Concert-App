@@ -24,13 +24,13 @@ class ListPersonMessageAdapter(
         with(holder) {
             with(listItem[position]) {
                 Picasso.get()
-                    .load(photo_url)
+                    .load(photoUrl)
                     .placeholder(R.drawable.img_placeholder_man)
                     .error(R.mipmap.ic_launcher)
                     .into(binding.ivItemPersonMessage)
                 binding.tvItemName.text = name
-                binding.tvItemMessagePlaceholder.text = text_message
-                binding.tvItemTimeMessage.text = time_message
+                binding.tvItemMessagePlaceholder.text = message
+                binding.tvItemTimeMessage.text = time
             }
         }
     }

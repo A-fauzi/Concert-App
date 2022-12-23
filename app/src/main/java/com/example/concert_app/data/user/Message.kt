@@ -5,12 +5,11 @@ import com.google.gson.annotations.SerializedName
 data class Message(
     val name: String? = null,
 
-    @SerializedName("photo_url")
-    val photo_url: String? = null,
+    val photoUrl: String? = null,
 
-    @SerializedName("text_message")
-    val text_message: String? = null,
+    val message: String? = null,
 
-    @SerializedName("time_message")
-    val time_message: String? = null
+    val receiverId: String? = null,
+
+    val time: String? = null
 )
