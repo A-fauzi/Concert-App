@@ -178,7 +178,10 @@
                     android:text="0 Followers"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:fontFamily="sans-serif"/>
+                    android:fontFamily="sans-serif"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"/>
 
                 <View
                     android:layout_width="1dp"
@@ -194,7 +197,10 @@
                     android:gravity="center"
                     android:text="0 Following"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"/>
             </LinearLayout>
 
         </LinearLayout>

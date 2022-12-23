@@ -35,13 +35,16 @@ data class DataItem(
 	val email: String? = null,
 
 	@field:SerializedName("gender")
-	val gender: String,
+	val gender: String? = null,
 
 	@field:SerializedName("title")
-	val title: String,
+	val title: String? = null,
 
 	@field:SerializedName("description")
-	val description: String,
+	val description: String? = null,
+
+	val followers: List<UserModel>? = null,
+	val following: List<UserModel>? = null,
 
 	@field:SerializedName("pathStorageProfile")
 	val pathStorageProfile: String? = null

@@ -19,14 +19,23 @@ data class UserRequest(
     val email: String? = null,
 
     @field:SerializedName("gender")
-    val gender: String,
+    val gender: String? = null,
 
     @field:SerializedName("title")
-    val title: String,
+    val title: String? = null,
 
     @field:SerializedName("description")
-    val description: String,
+    val description: String? = null,
 
     @field:SerializedName("pathStorageProfile")
-    val pathStorageProfile: String? = null
+    val pathStorageProfile: String? = null,
+
+    val followers: List<DataItem>? = null,
+    val following: List<UserModel>? = null,
+
+    @field:SerializedName("createdDate")
+    val createdDate: String? = null,
+
+    @field:SerializedName("modifiedDate")
+    val modifiedDate: String? = null
 )

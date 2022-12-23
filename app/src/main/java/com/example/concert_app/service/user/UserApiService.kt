@@ -8,10 +8,12 @@ import android.view.View
 import android.widget.*
 import com.example.concert_app.apiConfig.NetworkConfig
 import com.example.concert_app.R
+import com.example.concert_app.data.user.DataItem
 import com.example.concert_app.data.user.UserModel
 import com.example.concert_app.data.user.UserRequest
 import com.example.concert_app.data.user.UserResponse
 import com.example.concert_app.utils.Libs.dialogMessageAnimate
+import com.example.concert_app.utils.Libs.simpleDateFormat
 import com.example.concert_app.utils.LocalKeys
 import com.example.concert_app.utils.Preference.saveData
 import com.example.concert_app.view.main.MainActivity
@@ -167,7 +169,10 @@ class UserApiService(context: Context) {
         gender: String,
         title: String,
         description: String,
-        pathStorageProfile: String
+        pathStorageProfile: String,
+        followers: List<DataItem>? = null,
+        following: List<UserModel>? = null,
+        date: String,
     ) {
         val user = UserRequest(
             photoUrl = photoUrl,
@@ -178,7 +183,11 @@ class UserApiService(context: Context) {
             gender = gender,
             title = title,
             description = description,
-            pathStorageProfile = pathStorageProfile
+            pathStorageProfile = pathStorageProfile,
+            followers = followers,
+            following = following,
+            createdDate = date,
+            modifiedDate = simpleDateFormat()
         )
         NetworkConfig(LocalKeys.LOCAL_BASE_URL)
             .getUserService()

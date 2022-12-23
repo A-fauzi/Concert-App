@@ -7,14 +7,4 @@
     android:orientation="vertical"
     tools:context=".view.main.fragment.TicketFragment">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_person"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_list_message_person"/>
-
 </LinearLayout>

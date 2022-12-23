@@ -31,6 +31,9 @@ data class UserModel(
     @field:SerializedName("pathStorageProfile")
     val pathStorageProfile: String? = null,
 
+    val followers: List<UserModel>? = null,
+    val following: List<UserModel>? = null,
+
     @field:SerializedName("createdDate")
     val createdDate: String? = null,
 

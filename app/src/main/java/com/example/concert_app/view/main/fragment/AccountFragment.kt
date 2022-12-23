@@ -55,6 +55,8 @@ class AccountFragment : Fragment() {
     private lateinit var progressDialog: ProgressDialog
     private lateinit var title: TextView
     private lateinit var desc: TextView
+    private lateinit var following: TextView
+    private lateinit var followers: TextView
 
     private lateinit var shimmerViewContainer: ShimmerFrameLayout
     private lateinit var shimmerViewContainerSatu: ShimmerFrameLayout
@@ -75,6 +77,8 @@ class AccountFragment : Fragment() {
         profileLayout = binding.profileLayout
         shimmerViewContainerSatu = binding.shimmerViewContainer1View
         layoutItem1View = binding.layoutItem1View
+        following = binding.followingCount
+        followers = binding.followersCount
     }
 
     override fun onCreateView(
@@ -131,6 +135,13 @@ class AccountFragment : Fragment() {
 
         chooseImage.setOnClickListener {
             openGalleryForImage()
+        }
+
+        following.setOnClickListener {
+            startActivity(Intent(requireActivity(), ListPersonAccountActivity::class.java))
+        }
+        followers.setOnClickListener {
+            Toast.makeText(requireActivity(), "Belum ada followers di akun kamu", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -211,7 +222,8 @@ class AccountFragment : Fragment() {
                                             gender,
                                             title,
                                             desc,
-                                            refStorage.path
+                                            refStorage.path,
+                                            date = date
                                         )
                                     }
 

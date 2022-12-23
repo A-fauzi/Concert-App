@@ -22,26 +22,49 @@
             android:src="@drawable/img_placeholder_man" />
 
         <LinearLayout
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_toEndOf="@id/iv_item_person"
             android:layout_centerVertical="true"
-            android:layout_marginStart="8dp">
+            android:layout_marginStart="8dp"
+            android:layout_toStartOf="@id/item_btn_follow"
+            android:layout_toEndOf="@id/iv_item_person"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Akhmad Fauzi"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:ems="10"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="message ..."/>
+                android:ems="10"
+                android:text="message ..." />
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/item_btn_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Follow"
+            android:textAllCaps="false"
+            app:icon="@drawable/ic_baseline_add_24" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/item_btn_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Send message"
+            android:textAllCaps="false"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

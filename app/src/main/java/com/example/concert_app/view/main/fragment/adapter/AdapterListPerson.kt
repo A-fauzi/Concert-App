@@ -3,6 +3,7 @@ package com.example.concert_app.view.main.fragment.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.concert_app.R
 import com.example.concert_app.data.user.UserModel
@@ -32,8 +33,14 @@ class AdapterListPerson(
                         .into(binding.ivItemPerson)
                     binding.tvItemName.text = name
                     binding.tvItemTitle.text = title
-                    binding.itemLayoutCard.setOnClickListener {
-                        callClickListener.onClickItem(itemList[position])
+
+                    binding.itemBtnFollow.setOnClickListener {
+                        binding.itemBtnMessage.visibility = View.VISIBLE
+                        binding.itemBtnFollow.visibility = View.GONE
+                        callClickListener.onClickItemBtnFollow(itemList[position])
+                    }
+                    binding.itemBtnMessage.setOnClickListener {
+                        callClickListener.onClickItemBtnMessage(itemList[position])
                     }
                 } else {
                     binding.itemLayoutCard.visibility = View.GONE
@@ -47,6 +54,7 @@ class AdapterListPerson(
     }
 
     interface CallClickListener {
-        fun onClickItem(data: UserModel)
+        fun onClickItemBtnMessage(data: UserModel)
+        fun onClickItemBtnFollow(data: UserModel)
     }
 }
